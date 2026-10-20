@@ -1,0 +1,572 @@
+<title>Sing in Bloom</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;800&display=swap">
+<style>
+  /* Layout: one centered garden column; a flower cluster crowns the hero, vines divide sections, a garden border closes the page */
+  :root {
+    --bg: #fff4f7;
+    --surface: #ffffff;
+    --ink: #b0305f;
+    --ink-soft: #b8466f;
+    --accent: #e8407a;
+    --accent-ink: #ffffff;
+    --line: #f6c9d8;
+    --petal-1: #ff9cc0;
+    --petal-2: #ffc2d6;
+    --petal-3: #f76fa1;
+    --petal-4: #ffb3c9;
+    --center: #ffd36b;
+    --leaf: #7fbf8a;
+    --glow: rgba(232, 64, 122, .28);
+    --font-display: "Pacifico", "Brush Script MT", cursive;
+    --font-body: "Nunito", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #2a1020;
+      --surface: #3a1730;
+      --ink: #ffc7da;
+      --ink-soft: #f59ab9;
+      --accent: #ff6fa3;
+      --accent-ink: #2a1020;
+      --line: #5a2a48;
+      --petal-1: #ff7fae;
+      --petal-2: #ffaec9;
+      --petal-3: #e8508a;
+      --petal-4: #ff98bb;
+      --center: #ffd36b;
+      --leaf: #6aa877;
+      --glow: rgba(255, 111, 163, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #2a1020;
+    --surface: #3a1730;
+    --ink: #ffc7da;
+    --ink-soft: #f59ab9;
+    --accent: #ff6fa3;
+    --accent-ink: #2a1020;
+    --line: #5a2a48;
+    --petal-1: #ff7fae;
+    --petal-2: #ffaec9;
+    --petal-3: #e8508a;
+    --petal-4: #ff98bb;
+    --center: #ffd36b;
+    --leaf: #6aa877;
+    --glow: rgba(255, 111, 163, .35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; display: grid; gap: 56px; padding-block: 32px 0; position: relative; z-index: 1; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; color: var(--accent); text-wrap: balance; margin: 0; line-height: 1.25; }
+  h1 { font-size: clamp(3rem, 10vw, 5.5rem); }
+  h2 { font-size: clamp(2rem, 5vw, 2.6rem); }
+  h3 { font-size: 1.35rem; }
+  p { margin: 0; max-width: 65ch; }
+  .eyebrow { font-weight: 800; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+  section { display: grid; gap: 20px; }
+  .head { display: grid; gap: 6px; }
+
+  /* flowers */
+  .flower { display: block; overflow: visible; }
+  .flower .petal { fill: var(--k, var(--petal-1)); }
+  .flower .ctr { fill: var(--center); }
+  .flower .dot { fill: var(--accent); opacity: .5; }
+
+  /* hero */
+  .hero { text-align: center; display: grid; justify-items: center; gap: 16px; padding-block: 8px 0; }
+  .cluster { display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 96px; }
+  .cluster .flower { animation: sway 4s ease-in-out infinite; transform-origin: 50% 100%; }
+  .cluster .flower:nth-child(2n) { animation-delay: -1.3s; }
+  .cluster .flower:nth-child(3n) { animation-delay: -2.6s; }
+  body.singing .cluster .flower { animation: hop .5s ease-in-out infinite alternate; }
+  body.singing .cluster .flower:nth-child(2n) { animation-delay: -.25s; }
+  .tagline { font-size: 1.15rem; color: var(--ink-soft); max-width: 40ch; }
+
+  .btn {
+    font: 800 1rem var(--font-body);
+    color: var(--accent-ink);
+    background: var(--accent);
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 26px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px var(--glow);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px var(--glow); }
+  .btn:active { transform: translateY(0); }
+  .btn.ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; padding: 8px 18px; font-size: .92rem; }
+  .btn.ghost.is-playing, .btn.is-playing { background: var(--accent); color: var(--accent-ink); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 12px; }
+
+  .vine { display: flex; justify-content: center; align-items: center; gap: 14px; }
+  .vine::before, .vine::after { content: ""; flex: 1; max-width: 220px; height: 2px; background: var(--line); border-radius: 2px; }
+
+  /* piano */
+  .piano-card { background: var(--surface); border: 2px solid var(--line); border-radius: 28px; padding: 24px; display: grid; gap: 20px; }
+  .keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(68px, 1fr)); gap: 10px; }
+  .key {
+    font: inherit; color: var(--ink);
+    background: var(--bg);
+    border: 2px solid var(--line);
+    border-radius: 20px;
+    padding: 10px 4px 8px;
+    display: grid; justify-items: center; gap: 2px;
+    cursor: pointer;
+    transition: border-color .15s ease, background .15s ease;
+    touch-action: manipulation;
+  }
+  .key .flower { width: 52px; height: 52px; transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
+  .key .note { font-weight: 800; font-size: .95rem; }
+  .key .solfa { font-size: .78rem; color: var(--ink-soft); }
+  .key kbd { font: 600 .7rem var(--font-body); color: var(--ink-soft); border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; }
+  .key:hover { border-color: var(--petal-1); }
+  .key.on { border-color: var(--accent); background: var(--surface); }
+  .key.on .flower { transform: scale(1.28) rotate(36deg); }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .controls label { font-weight: 800; }
+  select {
+    font: 600 1rem var(--font-body); color: var(--ink);
+    background: var(--bg); border: 2px solid var(--line); border-radius: 999px;
+    padding: 8px 14px;
+  }
+  .hint { font-size: .9rem; color: var(--ink-soft); }
+
+  /* warm-ups */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 18px; }
+  .card { background: var(--surface); border: 2px solid var(--line); border-radius: 24px; padding: 20px; display: grid; gap: 10px; grid-template-rows: auto auto 1fr auto; }
+  .card .pattern { font-weight: 800; font-size: .88rem; color: var(--ink-soft); letter-spacing: .04em; }
+  .card .btn { justify-self: start; }
+
+  /* tips */
+  .tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+  .tips ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .tips li { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
+  .tips li .flower { width: 20px; height: 20px; margin-top: 4px; }
+  .tip-group { display: grid; gap: 12px; align-content: start; }
+
+  /* songs */
+  .moods { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+  .mood { border-top: 3px dotted var(--petal-1); padding-top: 12px; display: grid; gap: 8px; align-content: start; }
+  .mood ul { margin: 0; padding-left: 1.1em; }
+  .mood li::marker { content: "✿ "; color: var(--accent); }
+  .mood .why { font-size: .88rem; color: var(--ink-soft); }
+
+  /* footer garden */
+  footer { display: grid; gap: 8px; justify-items: center; text-align: center; padding-block: 16px 0; }
+  .garden { width: 100%; height: 130px; display: flex; align-items: flex-end; justify-content: space-between; overflow: hidden; }
+  .stem { display: flex; flex-direction: column; align-items: center; transform-origin: 50% 100%; animation: sway 5s ease-in-out infinite; }
+  .stem .flower { width: var(--s, 34px); height: var(--s, 34px); }
+  .stem i { display: block; width: 3px; height: var(--h, 60px); background: var(--leaf); border-radius: 2px; position: relative; }
+  .stem i::after { content: ""; position: absolute; top: 40%; left: 2px; width: 14px; height: 8px; background: var(--leaf); border-radius: 0 100% 0 100%; }
+  footer p { font-size: .9rem; color: var(--ink-soft); padding-block: 8px 20px; }
+
+  /* falling petals + bursts */
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  .falling { position: absolute; top: -40px; opacity: .75; animation: fall linear infinite; }
+  .burst { position: fixed; pointer-events: none; z-index: 5; width: 22px; height: 22px; margin: -11px 0 0 -11px; animation: pop .9s ease-out forwards; }
+
+  @keyframes sway { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+  @keyframes hop { from { transform: translateY(0) scale(1); } to { transform: translateY(-14px) scale(1.12); } }
+  @keyframes fall {
+    0% { transform: translate(0, -5vh) rotate(0deg); }
+    25% { transform: translate(30px, 25vh) rotate(90deg); }
+    50% { transform: translate(-20px, 55vh) rotate(180deg); }
+    75% { transform: translate(25px, 85vh) rotate(270deg); }
+    100% { transform: translate(0, 112vh) rotate(360deg); }
+  }
+  @keyframes pop {
+    from { transform: translate(0,0) scale(.4) rotate(0); opacity: 1; }
+    to { transform: translate(var(--dx), var(--dy)) scale(1) rotate(160deg); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cluster .flower, .stem, body.singing .cluster .flower { animation: none; }
+    .petals, .burst { display: none; }
+    .key .flower { transition: none; }
+  }
+  @media (max-width: 480px) {
+    .piano-card { padding: 16px; border-radius: 22px; }
+    .keys { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="cluster" id="cluster" aria-hidden="true"></div>
+    <h1>Sing in Bloom With Felicha</h1>
+    <p class="tagline">A little garden for your voice. Play the flower piano, warm up with real vocal exercises, and find a song to sing today.</p>
+    <button class="btn" id="singToMe" data-label="🎵 Sing to me">🎵 Sing to me</button>
+  </header>
+
+  <div class="vine" aria-hidden="true" data-vine></div>
+
+  <section id="piano" aria-labelledby="piano-title">
+    <div class="head">
+      <span class="eyebrow">C major · Do to Sol</span>
+      <h2 id="piano-title">The Flower Piano</h2>
+    </div>
+    <div class="piano-card">
+      <div class="keys" id="keys"></div>
+      <div class="controls">
+        <label for="song">Play a song</label>
+        <select id="song">
+          <option value="twinkle">Twinkle, Twinkle, Little Star</option>
+          <option value="mary">Mary Had a Little Lamb</option>
+          <option value="birthday">Happy Birthday</option>
+          <option value="ode">Ode to Joy</option>
+        </select>
+        <button class="btn ghost" id="playSong" data-label="▶ Play">▶ Play</button>
+        <span class="hint">Tap a flower, or press keys 1 through = on your keyboard.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="vine" aria-hidden="true" data-vine></div>
+
+  <section id="warmups" aria-labelledby="warm-title">
+    <div class="head">
+      <span class="eyebrow">5 minutes before you sing</span>
+      <h2 id="warm-title">Warm-ups</h2>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <div class="vine" aria-hidden="true" data-vine></div>
+
+  <section aria-labelledby="tips-title">
+    <div class="head">
+      <span class="eyebrow">Habits that help</span>
+      <h2 id="tips-title">Singing Tips</h2>
+    </div>
+    <div class="tips" id="tips"></div>
+  </section>
+
+  <div class="vine" aria-hidden="true" data-vine></div>
+
+  <section aria-labelledby="songs-title">
+    <div class="head">
+      <span class="eyebrow">Easy to learn, fun to sing</span>
+      <h2 id="songs-title">Song Ideas</h2>
+    </div>
+    <div class="moods">
+      <div class="mood">
+        <h3>Happy &amp; bright</h3>
+        <ul>
+          <li>“Walking on Sunshine”, Katrina and the Waves</li>
+          <li>“Here Comes the Sun”, The Beatles</li>
+          <li>“Shake It Off”, Taylor Swift</li>
+          <li>“Dancing Queen”, ABBA</li>
+        </ul>
+        <p class="why">Mid-range melodies that sit comfortably for most voices.</p>
+      </div>
+      <div class="mood">
+        <h3>Soft &amp; dreamy</h3>
+        <ul>
+          <li>“Somewhere Over the Rainbow”</li>
+          <li>“Moon River”</li>
+          <li>“Can’t Help Falling in Love”, Elvis Presley</li>
+          <li>“Edelweiss”</li>
+        </ul>
+        <p class="why">Slow tempos give you time to practice long, steady breaths.</p>
+      </div>
+      <div class="mood">
+        <h3>Big &amp; brave</h3>
+        <ul>
+          <li>“Let It Go”, from Frozen</li>
+          <li>“A Million Dreams”, from The Greatest Showman</li>
+          <li>“Respect”, Aretha Franklin</li>
+          <li>“Defying Gravity”, from Wicked</li>
+        </ul>
+        <p class="why">Save these for after your warm-up. They build to high notes.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="garden" id="garden" aria-hidden="true"></div>
+    <p>Made with love, music and a lot of flowers. Tap anywhere for a little bloom.</p>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const PETALS = ["var(--petal-1)", "var(--petal-2)", "var(--petal-3)", "var(--petal-4)"];
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function flower({ petals = 6, color = PETALS[0], size, cls = "" } = {}) {
+    let s = `<svg class="flower ${cls}" viewBox="-50 -50 100 100" style="--k:${color}${size ? `;width:${size}px;height:${size}px` : ""}" aria-hidden="true">`;
+    for (let i = 0; i < petals; i++) {
+      s += `<ellipse class="petal" cx="0" cy="-25" rx="${petals > 7 ? 10 : 14}" ry="24" transform="rotate(${(i * 360) / petals})"/>`;
+    }
+    s += `<circle class="ctr" r="14"/><circle class="dot" cx="-4" cy="-4" r="3"/><circle class="dot" cx="5" cy="3" r="2.5"/></svg>`;
+    return s;
+  }
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+
+  // ---------- decorations ----------
+  const cluster = document.getElementById("cluster");
+  [44, 62, 80, 96, 80, 62, 44].forEach((sz, i) => {
+    cluster.insertAdjacentHTML("beforeend", flower({ petals: [5, 6, 8][i % 3], color: PETALS[i % 4], size: sz }));
+  });
+
+  document.querySelectorAll("[data-vine]").forEach(v => {
+    let h = "";
+    for (let i = 0; i < 5; i++) h += flower({ petals: i % 2 ? 5 : 8, color: PETALS[(i + 1) % 4], size: i === 2 ? 34 : 22 });
+    v.innerHTML = h;
+  });
+
+  const garden = document.getElementById("garden");
+  for (let i = 0; i < 18; i++) {
+    const h = 30 + Math.round(Math.random() * 60);
+    const s = 24 + Math.round(Math.random() * 18);
+    garden.insertAdjacentHTML("beforeend",
+      `<div class="stem" style="--h:${h}px;--s:${s}px;animation-delay:${-Math.random() * 5}s">${flower({ petals: pick([5, 6, 8]), color: PETALS[i % 4] })}<i></i></div>`);
+  }
+
+  if (!reduced) {
+    const box = document.getElementById("petals");
+    for (let i = 0; i < 16; i++) {
+      const d = 10 + Math.random() * 10;
+      box.insertAdjacentHTML("beforeend",
+        `<div class="falling" style="left:${Math.random() * 100}%;animation-duration:${d}s;animation-delay:${-Math.random() * d}s">${flower({ petals: pick([5, 6]), color: pick(PETALS), size: 12 + Math.round(Math.random() * 16) })}</div>`);
+    }
+    document.addEventListener("pointerdown", e => {
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * Math.PI * 2 + Math.random() * .5;
+        const r = 40 + Math.random() * 40;
+        const el = document.createElement("div");
+        el.className = "burst";
+        el.style.left = e.clientX + "px";
+        el.style.top = e.clientY + "px";
+        el.style.setProperty("--dx", Math.cos(a) * r + "px");
+        el.style.setProperty("--dy", Math.sin(a) * r + "px");
+        el.innerHTML = flower({ petals: 5, color: pick(PETALS) });
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 950);
+      }
+    });
+  }
+
+  // ---------- sound ----------
+  const NOTES = [
+    ["C4", 261.63, "Do"], ["D4", 293.66, "Re"], ["E4", 329.63, "Mi"], ["F4", 349.23, "Fa"],
+    ["G4", 392.00, "Sol"], ["A4", 440.00, "La"], ["B4", 493.88, "Ti"], ["C5", 523.25, "Do"],
+    ["D5", 587.33, "Re"], ["E5", 659.25, "Mi"], ["F5", 698.46, "Fa"], ["G5", 783.99, "Sol"]
+  ];
+  const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="];
+  const freqOf = n => NOTES.find(x => x[0] === n)[1];
+
+  let ctx, master;
+  function audio() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      master = ctx.createGain();
+      master.gain.value = .7;
+      master.connect(ctx.destination);
+    }
+    if (ctx.state === "suspended") ctx.resume();
+    return ctx;
+  }
+
+  let voices = [];
+  // A soft, slightly vibrato "singing" tone.
+  function voice(freq, start, dur, glide) {
+    const c = audio();
+    const t = start ?? c.currentTime;
+    const end = t + dur;
+    const out = c.createGain();
+    out.gain.setValueAtTime(.0001, t);
+    out.gain.exponentialRampToValueAtTime(.28, t + .05);
+    out.gain.setValueAtTime(.28, Math.max(t + .06, end - .1));
+    out.gain.exponentialRampToValueAtTime(.0001, end + .3);
+
+    const filter = c.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 2400;
+    filter.connect(out);
+    out.connect(master);
+
+    const lfo = c.createOscillator();
+    lfo.frequency.value = 5.4;
+    const depth = c.createGain();
+    depth.gain.setValueAtTime(0, t);
+    depth.gain.linearRampToValueAtTime(freq * .012, t + Math.min(.35, dur));
+    lfo.connect(depth);
+
+    const oscs = [["triangle", 1, .9], ["sine", 2, .22]].map(([type, mult, level]) => {
+      const o = c.createOscillator();
+      o.type = type;
+      o.frequency.setValueAtTime(freq * mult, t);
+      if (glide) {
+        o.frequency.exponentialRampToValueAtTime(glide * mult, t + dur / 2);
+        o.frequency.exponentialRampToValueAtTime(freq * mult, end);
+      }
+      depth.connect(o.frequency);
+      const g = c.createGain();
+      g.gain.value = level;
+      o.connect(g).connect(filter);
+      return o;
+    });
+    [lfo, ...oscs].forEach(o => { o.start(t); o.stop(end + .35); });
+    const v = { out, oscs: [lfo, ...oscs], end: end + .35 };
+    voices.push(v);
+    voices = voices.filter(x => x.end > c.currentTime);
+    return v;
+  }
+
+  // ---------- piano keys ----------
+  const keyBox = document.getElementById("keys");
+  const keyEls = {};
+  NOTES.forEach(([n, , solfa], i) => {
+    const b = document.createElement("button");
+    b.className = "key";
+    b.type = "button";
+    b.setAttribute("aria-label", `${n} ${solfa}`);
+    b.innerHTML = `${flower({ petals: [5, 6, 8][i % 3], color: PETALS[i % 4] })}<span class="note">${n}</span><span class="solfa">${solfa}</span><kbd>${KEYS[i]}</kbd>`;
+    b.addEventListener("pointerdown", () => playKey(n));
+    b.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); playKey(n); } });
+    keyBox.appendChild(b);
+    keyEls[n] = b;
+  });
+
+  function flash(n, ms) {
+    const el = keyEls[n];
+    if (!el) return;
+    el.classList.add("on");
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove("on"), Math.max(180, ms));
+  }
+  function playKey(n) {
+    voice(freqOf(n), null, .7);
+    flash(n, 350);
+  }
+  document.addEventListener("keydown", e => {
+    if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.target.closest && e.target.closest("select")) return;
+    const i = KEYS.indexOf(e.key);
+    if (i >= 0) playKey(NOTES[i][0]);
+  });
+
+  // ---------- sequences ----------
+  let seqId = 0, timers = [], activeBtn = null;
+
+  function stopSeq() {
+    seqId++;
+    timers.forEach(clearTimeout);
+    timers = [];
+    if (ctx) {
+      const now = ctx.currentTime;
+      voices.forEach(v => {
+        try {
+          v.out.gain.cancelScheduledValues(now);
+          v.out.gain.setTargetAtTime(.0001, now, .03);
+          v.oscs.forEach(o => o.stop(now + .2));
+        } catch (_) {}
+      });
+      voices = [];
+    }
+    document.body.classList.remove("singing");
+    if (activeBtn) {
+      activeBtn.textContent = activeBtn.dataset.label;
+      activeBtn.classList.remove("is-playing");
+      activeBtn = null;
+    }
+  }
+
+  // steps: [note, beats] or [note, beats, glideNote]; "-" is a rest
+  function playSeq(steps, bpm, btn) {
+    stopSeq();
+    const id = seqId;
+    const c = audio();
+    const beat = 60 / bpm;
+    let t = c.currentTime + .08;
+    activeBtn = btn;
+    btn.textContent = "■ Stop";
+    btn.classList.add("is-playing");
+    document.body.classList.add("singing");
+    for (const [n, b, g] of steps) {
+      const dur = b * beat;
+      if (n !== "-") {
+        voice(freqOf(n), t, dur * .9, g ? freqOf(g) : null);
+        const at = (t - c.currentTime) * 1000;
+        timers.push(setTimeout(() => { if (id === seqId) flash(n, dur * 900); }, at));
+      }
+      t += dur;
+    }
+    timers.push(setTimeout(() => { if (id === seqId) stopSeq(); }, (t - c.currentTime) * 1000 + 200));
+  }
+  function toggle(btn, steps, bpm) {
+    if (activeBtn === btn) stopSeq();
+    else playSeq(steps, bpm, btn);
+  }
+
+  const seq = s => s.trim().split(/\s+/).map(tok => {
+    const [n, b = "1", g] = tok.split(":");
+    return [n, parseFloat(b), g];
+  });
+
+  const SONGS = {
+    twinkle: [seq("C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2"), 110],
+    mary: [seq("E4 D4 C4 D4 E4 E4 E4:2 D4 D4 D4:2 E4 G4 G4:2 E4 D4 C4 D4 E4 E4 E4 E4 D4 D4 E4 D4 C4:4"), 120],
+    birthday: [seq("G4:.75 G4:.25 A4 G4 C5 B4:2 G4:.75 G4:.25 A4 G4 D5 C5:2 G4:.75 G4:.25 G5 E5 C5 B4 A4:2 F5:.75 F5:.25 E5 C5 D5 C5:3"), 100],
+    ode: [seq("E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2"), 120]
+  };
+
+  const singBtn = document.getElementById("singToMe");
+  singBtn.addEventListener("click", () => toggle(singBtn, ...SONGS.twinkle));
+
+  const songBtn = document.getElementById("playSong");
+  const songSel = document.getElementById("song");
+  songBtn.addEventListener("click", () => toggle(songBtn, ...SONGS[songSel.value]));
+  songSel.addEventListener("change", () => { if (activeBtn === songBtn) playSeq(...SONGS[songSel.value], songBtn); });
+
+  // ---------- warm-ups ----------
+  const WARMUPS = [
+    { name: "Humming", pattern: "Mmm · Do – Mi – Sol", text: "Lips closed, teeth apart. Feel a buzz in your nose and cheeks. Hum each note long and gentle.", steps: "C4:2 E4:2 G4:2 E4:2 C4:3", bpm: 80 },
+    { name: "Lip trills", pattern: "Brrr · Do Mi Sol Do Sol Mi Do", text: "Blow through loose lips so they flutter like a motorboat while you follow the notes. Great for steady breath.", steps: "C4 E4 G4 C5:2 G4 E4 C4:2", bpm: 110 },
+    { name: "Five-note scale", pattern: "Ma-me-mi-mo-mu · Do to Sol and back", text: "Sing one vowel per note going up, then come back down. Keep every vowel round and open.", steps: "C4 D4 E4 F4 G4 F4 E4 D4 C4:2", bpm: 120 },
+    { name: "Sirens", pattern: "Ooo · slide Do → high Do → Do", text: "Slide smoothly up and down like a gentle siren. No breaks or bumps. Light and easy, never loud.", steps: "C4:6:C5", bpm: 80 },
+    { name: "Octave jumps", pattern: "Yah · Do – high Do – Do", text: "Jump up an octave on a bright “yah”. Aim for the top note without reaching your chin up.", steps: "C4 C5:2 C4:2 - D4 D5:2 D4:2", bpm: 110 },
+    { name: "Nay triads", pattern: "Nay · Do Mi Sol Mi Do", text: "A bratty, bright “nay” helps your voice ring forward. Keep it playful and light.", steps: "C4 E4 G4 E4 C4:2 - D4 F4 A4 F4 D4:2", bpm: 130 }
+  ];
+  const cards = document.getElementById("cards");
+  WARMUPS.forEach((w, i) => {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.innerHTML = `<h3>${w.name}</h3><span class="pattern">${w.pattern} · ${w.bpm} BPM</span><p>${w.text}</p><button class="btn ghost" id="warm-${i}" data-label="▶ Play the notes">▶ Play the notes</button>`;
+    const b = card.querySelector("button");
+    const steps = seq(w.steps);
+    b.addEventListener("click", () => toggle(b, steps, w.bpm));
+    cards.appendChild(card);
+  });
+
+  // ---------- tips ----------
+  const TIPS = [
+    ["Breathing", ["Breathe low into your belly, so your shoulders stay still.", "Let the air out slowly, like you’re fogging a window.", "Take quick breaths at the commas and ends of lines."]],
+    ["Posture", ["Stand tall with your feet hip-width apart.", "Relax your shoulders, jaw and tongue.", "Keep your chin level, not tipped up to the high notes."]],
+    ["Care for your voice", ["Sip room-temperature water through the day.", "Skip the shouting and whispering. Both tire your voice.", "Rest when you’re hoarse. A sore voice needs quiet."]],
+    ["Practice", ["Ten minutes every day beats an hour once a week.", "Record yourself and listen back with kind ears.", "Smile a little while you sing. It brightens the sound."]]
+  ];
+  document.getElementById("tips").innerHTML = TIPS.map(([title, items], i) =>
+    `<div class="tip-group"><h3>${title}</h3><ul>${items.map((t, j) =>
+      `<li>${flower({ petals: 5, color: PETALS[(i + j) % 4] })}<span>${t}</span></li>`).join("")}</ul></div>`
+  ).join("");
+})();
+</script>
