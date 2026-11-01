@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: starlightstage-site
+  namespace: starlightstage
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - starlightstage.uplifttech.org
+      secretName: starlightstage-tls
+  rules:
+    - host: starlightstage.uplifttech.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: starlightstage-site
+                port:
+                  number: 80

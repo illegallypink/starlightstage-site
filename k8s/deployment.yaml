@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starlightstage-site
+  namespace: starlightstage
+  labels:
+    app: starlightstage-site
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: starlightstage-site
+  template:
+    metadata:
+      labels:
+        app: starlightstage-site
+    spec:
+      containers:
+        - name: web
+          image: illegallypink/starlightstage-site:v1
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10
