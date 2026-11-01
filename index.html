@@ -6,13 +6,13 @@
 <style>
   /* Layout: one centered garden column; a flower cluster crowns the hero, vines divide sections, a garden border closes the page */
   :root {
-    --bg: #fff4f7;
-    --surface: #ffffff;
+    --bg: #fff9fb;
+    --surface: #fffcfd;
     --ink: #b0305f;
     --ink-soft: #b8466f;
     --accent: #e8407a;
     --accent-ink: #ffffff;
-    --line: #f6c9d8;
+    --line: #fadbe6;
     --petal-1: #ff9cc0;
     --petal-2: #ffc2d6;
     --petal-3: #f76fa1;
@@ -20,6 +20,11 @@
     --center: #ffd36b;
     --leaf: #7fbf8a;
     --glow: rgba(232, 64, 122, .28);
+    --screen: #4a1631;
+    --screen-ink: #fff0f5;
+    --screen-dim: #d998b4;
+    --sung: #ff8fb8;
+    --now: #ffd36b;
     --font-display: "Pacifico", "Brush Script MT", cursive;
     --font-body: "Nunito", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   }
@@ -40,6 +45,11 @@
       --center: #ffd36b;
       --leaf: #6aa877;
       --glow: rgba(255, 111, 163, .35);
+      --screen: #1c0914;
+      --screen-ink: #ffe3ee;
+      --screen-dim: #b97a96;
+      --sung: #ff7fae;
+      --now: #ffd36b;
     }
   }
   :root[data-theme="dark"] {
@@ -58,6 +68,11 @@
     --center: #ffd36b;
     --leaf: #6aa877;
     --glow: rgba(255, 111, 163, .35);
+    --screen: #1c0914;
+    --screen-ink: #ffe3ee;
+    --screen-dim: #b97a96;
+    --sung: #ff7fae;
+    --now: #ffd36b;
   }
 
   * { box-sizing: border-box; }
@@ -153,6 +168,62 @@
   .card .pattern { font-weight: 800; font-size: .88rem; color: var(--ink-soft); letter-spacing: .04em; }
   .card .btn { justify-self: start; }
 
+  /* karaoke: a flowery machine with a lit lyric screen between two flower speakers */
+  .machine { background: var(--surface); border: 2px solid var(--line); border-radius: 32px; padding: 24px; display: grid; gap: 16px; box-shadow: 0 10px 30px var(--glow); }
+  .m-crown { display: flex; justify-content: center; align-items: flex-end; gap: 4px; margin-top: -48px; }
+  .m-body { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; }
+  .speaker { display: grid; justify-items: center; gap: 4px; }
+  .speaker .row { display: flex; gap: 6px; }
+  body.singing .speaker .flower { animation: hop .5s ease-in-out infinite alternate; }
+  .screen { background: var(--screen); color: var(--screen-ink); border-radius: 22px; box-shadow: inset 0 0 0 4px var(--line); padding: 20px 16px; text-align: center; min-height: 10em; display: grid; gap: 10px; align-content: center; }
+  .screen p { max-width: none; }
+  .k-title { font-family: var(--font-display); color: var(--sung); font-size: 1.1rem; }
+  .k-now { position: relative; font: 800 clamp(1.35rem, 5vw, 2rem)/1.5 var(--font-body); padding-top: 28px; }
+  #kWords span { transition: color .12s; }
+  #kWords .sung { color: var(--sung); }
+  #kWords .now { color: var(--now); }
+  .k-next { color: var(--screen-dim); font-size: 1rem; }
+  .k-ball { position: absolute; left: 0; top: 0; margin: -26px 0 0 -11px; transition: transform .18s ease-out; }
+  .k-ball.jump { transition: none; }
+  .k-ball[hidden] { display: none; }
+  .k-hop { display: block; }
+  .k-mode { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .k-mode legend { font-weight: 800; float: left; margin-right: 6px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; }
+  .pill span { display: inline-block; font: 800 .92rem var(--font-body); color: var(--accent); border: 2px solid var(--accent); border-radius: 999px; padding: 6px 14px; }
+  .pill input:checked + span { background: var(--accent); color: var(--accent-ink); }
+  .pill input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .k-yt { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .yt { font: 800 .92rem var(--font-body); color: var(--accent); border: 2px solid var(--accent); border-radius: 999px; padding: 6px 14px; text-decoration: none; }
+  .yt:hover { background: var(--accent); color: var(--accent-ink); }
+  .k-lyrics summary { font-weight: 800; cursor: pointer; }
+  .k-lyrics #kAll { display: grid; gap: 4px; padding-top: 8px; }
+
+  /* genres: reuse .cards/.card, with a technique list and example songs */
+  .card.genre { grid-template-rows: auto auto 1fr auto auto; }
+  .genre ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+  .genre li::marker { content: "✿ "; color: var(--accent); }
+  .genre .learn { font-size: .88rem; color: var(--ink-soft); }
+  .genre .learn b { color: var(--ink); }
+
+  /* views: the home page and one page per genre, switched by #token links */
+  .view { display: grid; gap: 56px; }
+  .view[hidden] { display: none; }
+  .card.genre-link { color: inherit; text-decoration: none; grid-template-rows: auto 1fr auto; transition: border-color .15s ease, transform .15s ease; }
+  .genre-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .genre-link .go { font-weight: 800; color: var(--accent); }
+  .back, .g-nav a { font-weight: 800; color: var(--accent); text-decoration: none; justify-self: start; }
+  .back:hover, .g-nav a:hover { text-decoration: underline; }
+  .g-hero { text-align: center; display: grid; justify-items: center; gap: 14px; }
+  #gName:focus { outline: none; }
+  .g-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
+  .g-cols section { align-content: start; }
+  .tracks { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .tracks li { background: var(--surface); border: 2px solid var(--line); border-radius: 20px; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+  .tracks li span { min-width: 0; }
+  .g-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
   /* tips */
   .tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
   .tips ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
@@ -198,16 +269,25 @@
     .cluster .flower, .stem, body.singing .cluster .flower { animation: none; }
     .petals, .burst { display: none; }
     .key .flower { transition: none; }
+    .k-ball { transition: none; }
+    body.singing .speaker .flower { animation: none; }
+    .card.genre-link { transition: none; }
+    .genre-link:hover { transform: none; }
   }
   @media (max-width: 480px) {
     .piano-card { padding: 16px; border-radius: 22px; }
     .keys { grid-template-columns: repeat(4, 1fr); }
+    .machine { padding: 16px; border-radius: 24px; }
+    .speaker { display: none; }
+    .m-body { grid-template-columns: 1fr; }
+    .k-controls .btn { width: 100%; }
   }
 </style>
 
 <div class="petals" id="petals" aria-hidden="true"></div>
 
 <main class="wrap">
+ <div class="view" id="home">
   <header class="hero">
     <div class="cluster" id="cluster" aria-hidden="true"></div>
     <h1>Sing in Bloom With Felicha</h1>
@@ -246,6 +326,47 @@
       <h2 id="warm-title">Warm-ups</h2>
     </div>
     <div class="cards" id="cards"></div>
+  </section>
+
+  <div class="vine" aria-hidden="true" data-vine></div>
+
+  <section id="karaoke" aria-labelledby="karaoke-title">
+    <div class="head">
+      <span class="eyebrow">Sing along · public domain classics</span>
+      <h2 id="karaoke-title">The Karaoke Machine</h2>
+    </div>
+    <div class="machine">
+      <div class="m-crown" id="kCrown" aria-hidden="true"></div>
+      <div class="m-body">
+        <div class="speaker" aria-hidden="true"></div>
+        <div class="screen">
+          <p class="k-title" id="kTitle"></p>
+          <div class="k-now"><span class="k-ball" id="kBall" aria-hidden="true" hidden><span class="k-hop"></span></span><span id="kWords"></span></div>
+          <p class="k-next" id="kNext"></p>
+        </div>
+        <div class="speaker" aria-hidden="true"></div>
+      </div>
+      <div class="controls k-controls">
+        <label for="kSong">Song</label>
+        <select id="kSong"></select>
+        <label for="kStyle">Style</label>
+        <select id="kStyle"></select>
+        <fieldset class="k-mode"><legend>Mode</legend>
+          <label class="pill"><input type="radio" name="kMode" value="melody" checked><span>With melody</span></label>
+          <label class="pill"><input type="radio" name="kMode" value="backing"><span>Backing only</span></label>
+        </fieldset>
+        <label for="kTempo">Tempo</label>
+        <select id="kTempo"><option value=".8">Slow</option><option value="1" selected>Normal</option><option value="1.2">Quick</option></select>
+        <button class="btn" id="kPlay" data-label="▶ Sing">▶ Sing</button>
+      </div>
+      <p class="hint">Pick a style to hear any song as pop, rock, jazz, country and more. Learn the tune with the melody, then switch to Backing only and sing it yourself.</p>
+      <div class="k-yt">
+        <a class="yt" id="kYt" href="https://www.youtube.com/" target="_blank" rel="noopener">▶ Real instrumental on YouTube ↗</a>
+        <button class="btn ghost" id="kStep" data-label="Next line ▸">Next line ▸</button>
+      </div>
+      <p class="hint">Singing with a YouTube track? Start the video in its tab, then tap Next line here to keep the words on screen.</p>
+      <details class="k-lyrics"><summary>All the words</summary><div id="kAll"></div></details>
+    </div>
   </section>
 
   <div class="vine" aria-hidden="true" data-vine></div>
@@ -298,6 +419,57 @@
       </div>
     </div>
   </section>
+
+  <div class="vine" aria-hidden="true" data-vine></div>
+
+  <section id="genres" aria-labelledby="genres-title">
+    <div class="head">
+      <span class="eyebrow">Try on a new style</span>
+      <h2 id="genres-title">Genres to Learn</h2>
+    </div>
+    <div class="cards" id="genreCards"></div>
+  </section>
+ </div>
+
+  <article class="view" id="genrePage" aria-labelledby="gName" hidden>
+    <a class="back" href="#genres">← Back to Sing in Bloom</a>
+    <header class="g-hero">
+      <div class="cluster" id="gCluster" aria-hidden="true"></div>
+      <span class="eyebrow" id="gCount"></span>
+      <h1 id="gName" tabindex="-1"></h1>
+      <p class="tagline" id="gSound"></p>
+      <div class="controls">
+        <button class="btn" id="gLick" data-label="▶ Hear a lick">▶ Hear a lick</button>
+        <a class="yt" id="gKaraoke" href="#karaoke"></a>
+      </div>
+    </header>
+
+    <div class="vine" aria-hidden="true" data-vine></div>
+
+    <div class="g-cols">
+      <section class="genre" aria-labelledby="gTipsTitle">
+        <h2 id="gTipsTitle">How to sing it</h2>
+        <ul id="gTips"></ul>
+      </section>
+      <section class="genre" aria-labelledby="gVoicesTitle">
+        <h2 id="gVoicesTitle">Voices to study</h2>
+        <ul id="gVoices"></ul>
+      </section>
+    </div>
+
+    <div class="vine" aria-hidden="true" data-vine></div>
+
+    <section aria-labelledby="gTracksTitle">
+      <div class="head">
+        <span class="eyebrow">Real instrumentals on YouTube</span>
+        <h2 id="gTracksTitle">Karaoke Tracks</h2>
+      </div>
+      <ul class="tracks" id="gTracks"></ul>
+      <p class="hint">Each link opens a YouTube search for backing tracks in a new tab, so you can pick the version and key that suit your voice.</p>
+    </section>
+
+    <nav class="g-nav" aria-label="Other genres"><a id="gPrev" href="#genres"></a><a id="gNext" href="#genres"></a></nav>
+  </article>
 
   <footer>
     <div class="garden" id="garden" aria-hidden="true"></div>
@@ -372,6 +544,12 @@
   ];
   const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="];
   const freqOf = n => NOTES.find(x => x[0] === n)[1];
+  // Any note name (C2, F#3, Bb3...) to Hz. Only the accompaniment uses it; melodies stay on freqOf/NOTES.
+  const hz = n => {
+    const m = /^([A-G])([#b]?)(\d)$/.exec(n);
+    const st = "C D EF G A B".indexOf(m[1]) + (m[2] === "#") - (m[2] === "b");
+    return 440 * 2 ** ((st - 9) / 12 + (m[3] - 4));
+  };
 
   let ctx, master;
   function audio() {
@@ -386,20 +564,20 @@
   }
 
   let voices = [];
-  // A soft, slightly vibrato "singing" tone.
-  function voice(freq, start, dur, glide) {
+  // A soft, slightly vibrato "singing" tone. The optional tone settings let the karaoke backing play quieter and darker.
+  function voice(freq, start, dur, glide, { level = .28, vib = .012, bright = 2400 } = {}) {
     const c = audio();
     const t = start ?? c.currentTime;
     const end = t + dur;
     const out = c.createGain();
     out.gain.setValueAtTime(.0001, t);
-    out.gain.exponentialRampToValueAtTime(.28, t + .05);
-    out.gain.setValueAtTime(.28, Math.max(t + .06, end - .1));
+    out.gain.exponentialRampToValueAtTime(level, t + .05);
+    out.gain.setValueAtTime(level, Math.max(t + .06, end - .1));
     out.gain.exponentialRampToValueAtTime(.0001, end + .3);
 
     const filter = c.createBiquadFilter();
     filter.type = "lowpass";
-    filter.frequency.value = 2400;
+    filter.frequency.value = bright;
     filter.connect(out);
     out.connect(master);
 
@@ -407,7 +585,7 @@
     lfo.frequency.value = 5.4;
     const depth = c.createGain();
     depth.gain.setValueAtTime(0, t);
-    depth.gain.linearRampToValueAtTime(freq * .012, t + Math.min(.35, dur));
+    depth.gain.linearRampToValueAtTime(freq * vib, t + Math.min(.35, dur));
     lfo.connect(depth);
 
     const oscs = [["triangle", 1, .9], ["sine", 2, .22]].map(([type, mult, level]) => {
@@ -429,6 +607,40 @@
     voices.push(v);
     voices = voices.filter(x => x.end > c.currentTime);
     return v;
+  }
+
+  // Synth drums for the karaoke styles: a pitch-dropping sine kick, and filtered noise for snare, hat and ride.
+  const DRUMS = { kick: [.45, .18], snare: [.16, .16, "bandpass", 1800], hat: [.05, .05, "highpass", 7000], ride: [.05, .3, "highpass", 5000] };
+  let noise;
+  function drum(kind, t) {
+    const c = audio();
+    const [peak, len, type, cutoff] = DRUMS[kind];
+    if (!noise) {
+      noise = c.createBuffer(1, c.sampleRate / 2, c.sampleRate);
+      const d = noise.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    const out = c.createGain();
+    out.gain.setValueAtTime(peak, t);
+    out.gain.exponentialRampToValueAtTime(.0001, t + len);
+    out.connect(master);
+    let src;
+    if (kind === "kick") {
+      src = c.createOscillator();
+      src.frequency.setValueAtTime(140, t);
+      src.frequency.exponentialRampToValueAtTime(45, t + .12);
+      src.connect(out);
+    } else {
+      src = c.createBufferSource();
+      src.buffer = noise;
+      const f = c.createBiquadFilter();
+      f.type = type;
+      f.frequency.value = cutoff;
+      src.connect(f).connect(out);
+    }
+    src.start(t);
+    src.stop(t + len + .02);
+    voices.push({ out, oscs: [src], end: t + len + .02 });
   }
 
   // ---------- piano keys ----------
@@ -465,9 +677,10 @@
   });
 
   // ---------- sequences ----------
-  let seqId = 0, timers = [], activeBtn = null;
+  let seqId = 0, timers = [], activeBtn = null, onStop = null;
 
-  function stopSeq() {
+  // ended is true only when a sequence plays to the end; never pass stopSeq straight to addEventListener.
+  function stopSeq(ended = false) {
     seqId++;
     timers.forEach(clearTimeout);
     timers = [];
@@ -488,33 +701,40 @@
       activeBtn.classList.remove("is-playing");
       activeBtn = null;
     }
+    if (onStop) { const f = onStop; onStop = null; f(ended); }
   }
 
   // steps: [note, beats] or [note, beats, glideNote]; "-" is a rest
-  function playSeq(steps, bpm, btn) {
+  // opts (all optional): mute skips the melody voice; backing is [{at, freq, beats, tone}] timed in beats from the start;
+  // onStep(i, durSec) fires as each step begins; onStop(ended) fires when this sequence stops or is replaced.
+  function playSeq(steps, bpm, btn, opts = {}) {
     stopSeq();
+    onStop = opts.onStop || null;
     const id = seqId;
     const c = audio();
     const beat = 60 / bpm;
-    let t = c.currentTime + .08;
+    const t0 = c.currentTime + .08;
+    let t = t0;
     activeBtn = btn;
     btn.textContent = "■ Stop";
     btn.classList.add("is-playing");
     document.body.classList.add("singing");
-    for (const [n, b, g] of steps) {
+    (opts.backing || []).forEach(e => e.drum ? drum(e.drum, t0 + e.at * beat) : voice(e.freq, t0 + e.at * beat, e.beats * beat, null, e.tone));
+    steps.forEach(([n, b, g], i) => {
       const dur = b * beat;
+      const at = (t - c.currentTime) * 1000;
       if (n !== "-") {
-        voice(freqOf(n), t, dur * .9, g ? freqOf(g) : null);
-        const at = (t - c.currentTime) * 1000;
+        if (!opts.mute) voice(freqOf(n), t, dur * .9, g ? freqOf(g) : null);
         timers.push(setTimeout(() => { if (id === seqId) flash(n, dur * 900); }, at));
       }
+      if (opts.onStep) timers.push(setTimeout(() => { if (id === seqId) opts.onStep(i, dur); }, at));
       t += dur;
-    }
-    timers.push(setTimeout(() => { if (id === seqId) stopSeq(); }, (t - c.currentTime) * 1000 + 200));
+    });
+    timers.push(setTimeout(() => { if (id === seqId) stopSeq(true); }, (t - c.currentTime) * 1000 + 200));
   }
-  function toggle(btn, steps, bpm) {
+  function toggle(btn, steps, bpm, opts) {
     if (activeBtn === btn) stopSeq();
-    else playSeq(steps, bpm, btn);
+    else playSeq(steps, bpm, btn, opts);
   }
 
   const seq = s => s.trim().split(/\s+/).map(tok => {
@@ -536,6 +756,334 @@
   const songSel = document.getElementById("song");
   songBtn.addEventListener("click", () => toggle(songBtn, ...SONGS[songSel.value]));
   songSel.addEventListener("change", () => { if (activeBtn === songBtn) playSeq(...SONGS[songSel.value], songBtn); });
+
+  // ---------- karaoke ----------
+  // Each line is [melody, syllables, chords]. Syllables are space-separated; "Twin-" joins the next syllable,
+  // "~" holds the previous syllable over another note. Chords use seq() syntax, with "-" for no chord.
+  // bass and fifth sit low, the voicings sit under the melody (C4–G5).
+  // walk: a jazz walking line; jazz: a 7th voicing; power: a rock power chord; arp: a classical Alberti pattern.
+  const CHORDS = {
+    C: { bass: "C3", fifth: "G2", pad: ["E3", "G3", "C4"], walk: ["C3", "E3", "G3", "A3"], jazz: ["E3", "G3", "B3"], power: ["C3", "G3", "C4"], arp: ["C3", "G3", "E3", "G3"] },
+    C7: { bass: "C3", fifth: "G2", pad: ["E3", "Bb3", "C4"], walk: ["C3", "E3", "G3", "Bb3"], jazz: ["E3", "Bb3", "D4"], power: ["C3", "G3", "C4"], arp: ["C3", "G3", "E3", "Bb3"] },
+    D7: { bass: "D3", fifth: "A2", pad: ["F#3", "A3", "C4"], walk: ["D3", "F#3", "A3", "C4"], jazz: ["F#3", "C4", "E4"], power: ["D3", "A3", "D4"], arp: ["D3", "A3", "F#3", "C4"] },
+    Dm: { bass: "D3", fifth: "A2", pad: ["F3", "A3", "D4"], walk: ["D3", "F3", "A3", "C4"], jazz: ["F3", "A3", "C4"], power: ["D3", "A3", "D4"], arp: ["D3", "A3", "F3", "A3"] },
+    E7: { bass: "E2", fifth: "B2", pad: ["D3", "G#3", "B3"], walk: ["E2", "G#2", "B2", "D3"], jazz: ["D3", "G#3", "B3"], power: ["E2", "B2", "E3"], arp: ["E2", "B2", "G#2", "D3"] },
+    Em: { bass: "E2", fifth: "B2", pad: ["E3", "G3", "B3"], walk: ["E2", "G2", "B2", "D3"], jazz: ["D3", "G3", "B3"], power: ["E2", "B2", "E3"], arp: ["E2", "B2", "G2", "B2"] },
+    F: { bass: "F2", fifth: "C3", pad: ["F3", "A3", "C4"], walk: ["F2", "A2", "C3", "D3"], jazz: ["A3", "C4", "E4"], power: ["F2", "C3", "F3"], arp: ["F2", "C3", "A2", "C3"] },
+    G: { bass: "G2", fifth: "D3", pad: ["D3", "G3", "B3"], walk: ["G2", "B2", "D3", "F3"], jazz: ["F3", "B3", "D4"], power: ["G2", "D3", "G3"], arp: ["G2", "D3", "B2", "D3"] },
+    G7: { bass: "G2", fifth: "D3", pad: ["F3", "G3", "B3"], walk: ["G2", "B2", "D3", "F3"], jazz: ["F3", "B3", "E4"], power: ["G2", "D3", "G3"], arp: ["G2", "D3", "B2", "F3"] },
+    A7: { bass: "A2", fifth: "E3", pad: ["E3", "G3", "C#4"], walk: ["A2", "C#3", "E3", "G3"], jazz: ["G3", "C#4", "E4"], power: ["A2", "E3", "A3"], arp: ["A2", "E3", "C#3", "G3"] },
+    Am: { bass: "A2", fifth: "E3", pad: ["E3", "A3", "C4"], walk: ["A2", "C3", "E3", "G3"], jazz: ["G3", "C4", "E4"], power: ["A2", "E3", "A3"], arp: ["A2", "E3", "C3", "E3"] }
+  };
+  const tone = (level, vib, bright) => ({ level, vib, bright });
+  const BASS = tone(.16, 0, 900), PAD = tone(.05, .004, 1600), TICK = tone(.1, 0, 3000);
+  const PICK = tone(.13, 0, 1400), HELD = tone(.045, .004, 1800), POWER = tone(.045, 0, 3200), CHICK = tone(.07, 0, 2600),
+    COMP = tone(.06, 0, 2000), ORGAN = tone(.05, .008, 2800), EPIANO = tone(.055, .01, 1800), STRINGS = tone(.045, .01, 2200),
+    PIZZ = tone(.05, 0, 1500), PIANO = tone(.07, 0, 1800);
+
+  // Backing styles, one per genre. play(x) runs on every grid step (eighth notes; thirds of a pulse in 6/8).
+  // x: ch (CHORDS entry), n (pulse number in the bar), k (step within the pulse), np (pulses per bar), step (grid step in the bar),
+  // change (first step of a new chord), hold (beats until the chord or the bar ends), pulse, sub, swing (offset for a swung "and"),
+  // and the helpers x.notes(names, beats, tone, delay) and x.hit(drum, delay).
+  const STYLES = {
+    singalong: { name: "Sing-along", yt: "karaoke instrumental", play(x) {
+      if (x.k) return;
+      if (x.change || x.n === 0) x.notes([x.ch.bass], x.pulse * .95, BASS);
+      else x.notes(x.ch.pad, x.pulse * .8, PAD);
+    } },
+    pop: { name: "Pop", yt: "pop instrumental", play(x) {
+      x.hit("hat");
+      if (x.k) return;
+      x.hit(x.n === 0 || (x.np === 4 && x.n === 2) ? "kick" : "snare");
+      if (x.change || x.n === 0 || x.n === 2) x.notes([x.ch.bass], x.pulse * .9, PICK);
+      if (x.change || x.n === 0) x.notes(x.ch.pad, x.hold * .95, HELD);
+    } },
+    rnb: { name: "R&B / Soul", yt: "R&B instrumental", play(x) {
+      x.hit("hat", x.k ? x.swing : 0);
+      const last = x.np - 1;
+      if (x.k === 0 && x.n === 0) x.hit("kick");
+      if (x.k === 1 && x.n === Math.min(2, last)) x.hit("kick", x.swing);
+      if (x.k === 0 && x.n === Math.max(1, last - (x.np === 4 ? 1 : 0)) && x.n !== 0) x.hit("snare");
+      if (x.change || (x.k === 0 && x.n === 0)) { x.notes([x.ch.bass], x.pulse * 1.4, PICK); x.notes(x.ch.jazz, x.hold * .95, EPIANO); }
+      else if (x.k === 1 && x.n === 1) x.notes([x.ch.bass], x.sub * .8, PICK, x.swing);
+    } },
+    theatre: { name: "Musical Theatre", yt: "orchestral instrumental", play(x) {
+      if (x.k) return;
+      if (x.change || x.n === 0) {
+        x.hit("kick");
+        x.notes([x.ch.bass], x.pulse * 1.8, BASS);
+        x.notes(x.ch.pad, x.hold * .95, STRINGS);
+      } else x.notes(x.ch.pad, x.pulse * .3, PIZZ);
+    } },
+    jazz: { name: "Jazz", yt: "jazz instrumental", play(x) {
+      if (x.k === 0) {
+        x.notes([x.ch.walk[x.change ? 0 : x.n % 4]], x.pulse * .9, BASS);
+        x.hit("ride");
+        if (x.n % 2) x.hit("hat");
+        if (x.n === 1) x.notes(x.ch.jazz, x.pulse * .45, COMP);
+      } else if (x.k === x.pulse / x.sub - 1 && x.n % 2) {
+        x.hit("ride", x.swing);
+        if (x.n === x.np - 1) x.notes(x.ch.jazz, x.sub * .9, COMP, x.swing);
+      }
+    } },
+    country: { name: "Country", yt: "country instrumental", play(x) {
+      const boom = x.k === 0 && (x.n === 0 || x.np === 2 || (x.np === 4 && x.n === 2));
+      if (boom) x.notes([x.change || x.n === 0 ? x.ch.bass : x.ch.fifth], x.pulse * .8, PICK);
+      else if (x.pulse === 1 ? x.k === 0 : x.k > 0) { x.notes(x.ch.pad, x.sub * .6, CHICK); x.hit("snare"); }
+    } },
+    rock: { name: "Rock", yt: "rock instrumental", play(x) {
+      x.hit("hat");
+      x.notes([x.ch.bass], x.sub * .8, PICK);
+      if (x.k === 0) x.hit(x.n % 2 ? "snare" : "kick");
+      else if (x.np === 4 && x.n === 2) x.hit("kick");
+      if (x.change || (x.k === 0 && x.n % 2 === 0)) x.notes(x.ch.power, Math.min(x.hold, x.pulse * 2) * .95, POWER);
+    } },
+    gospel: { name: "Gospel", yt: "gospel instrumental", play(x) {
+      if (x.change || (x.k === 0 && x.n === 0)) x.notes(x.ch.pad, x.hold * .95, ORGAN);
+      if (x.k === 0) {
+        if (x.n === 0 || x.change) x.notes([x.ch.bass], x.pulse * .9, BASS);
+        x.hit(x.n === 0 || (x.np === 4 && x.n === 2) ? "kick" : "snare");
+      } else if (x.np === 4 && x.n === 1 && x.k === 1) x.notes([x.ch.fifth], x.sub * .8, BASS, x.swing);
+    } },
+    classical: { name: "Classical", yt: "piano accompaniment", play(x) {
+      x.notes([x.ch.arp[x.step % 4]], x.sub * .9, PIANO);
+    } }
+  };
+
+  const KARAOKE = [
+    { id: "twinkle", genre: "singalong", title: "Twinkle, Twinkle, Little Star", credit: "Words Jane Taylor, 1806 · traditional French tune", bpm: 96, bar: 4, countIn: 4, lines: [
+      ["C4 C4 G4 G4 A4 A4 G4:2", "Twin- kle, twin- kle, lit- tle star,", "C:4 F:2 C:2"],
+      ["F4 F4 E4 E4 D4 D4 C4:2", "How I won- der what you are!", "F:2 C:2 G:2 C:2"],
+      ["G4 G4 F4 F4 E4 E4 D4:2", "Up a- bove the world so high,", "C:2 F:2 C:2 G:2"],
+      ["G4 G4 F4 F4 E4 E4 D4:2", "Like a dia- mond in the sky.", "C:2 F:2 C:2 G:2"],
+      ["C4 C4 G4 G4 A4 A4 G4:2", "Twin- kle, twin- kle, lit- tle star,", "C:4 F:2 C:2"],
+      ["F4 F4 E4 E4 D4 D4 C4:2", "How I won- der what you are!", "F:2 C:2 G:2 C:2"] ] },
+    { id: "mary", genre: "singalong", title: "Mary Had a Little Lamb", credit: "Words Sarah Josepha Hale, 1830 · traditional tune", bpm: 108, bar: 4, countIn: 4, lines: [
+      ["E4 D4 C4 D4 E4 E4 E4:2", "Ma- ry had a lit- tle lamb,", "C:8"],
+      ["D4 D4 D4:2 E4 G4 G4:2", "lit- tle lamb, lit- tle lamb,", "G:4 C:4"],
+      ["E4 D4 C4 D4 E4 E4 E4", "Ma- ry had a lit- tle lamb,", "C:7"],
+      ["E4 D4 D4 E4 D4 C4:4", "its fleece was white as snow.", "C:1 G:4 C:4"] ] },
+    { id: "row", genre: "singalong", title: "Row, Row, Row Your Boat", credit: "Traditional, 1852", bpm: 192, bar: 6, pulse: 3, countIn: 12, lines: [
+      ["C4:3 C4:3 C4:2 D4:1 E4:3", "Row, row, row your boat", "C:12"],
+      ["E4:2 D4:1 E4:2 F4:1 G4:6", "gent- ly down the stream.", "C:12"],
+      ["C5 C5 C5 G4 G4 G4 E4 E4 E4 C4 C4 C4", "Mer- ri- ly, mer- ri- ly, mer- ri- ly, mer- ri- ly,", "C:12"],
+      ["G4:2 F4:1 E4:2 D4:1 C4:6", "life is but a dream.", "G:6 C:6"] ] },
+    { id: "birthday", genre: "singalong", title: "Happy Birthday", credit: "Hill sisters, 1893 · public domain in the US since 2016", bpm: 96, bar: 3, pickup: 1, countIn: 5, lines: [
+      ["G4:.75 G4:.25 A4 G4 C5 B4:2", "Hap- py birth- day to you,", "-:1 C:3 G:2"],
+      ["G4:.75 G4:.25 A4 G4 D5 C5:2", "Hap- py birth- day to you,", "G:4 C:2"],
+      ["G4:.75 G4:.25 G5 E5 C5 B4 A4", "Hap- py birth- day, dear sing- er,", "C:4 F:2"],
+      ["F5:.75 F5:.25 E5 C5 D5 C5:3", "Hap- py birth- day to you!", "F:1 C:2 G:1 C:3"] ] },
+    { id: "ode", genre: "classical", title: "Ode to Joy (Joyful, Joyful)", credit: "Beethoven, 1824 · words Henry van Dyke, 1907", bpm: 104, bar: 4, countIn: 4, lines: [
+      ["E4 E4 F4 G4 G4 F4 E4 D4", "Joy- ful, joy- ful, we a- dore Thee,", "C:4 G:4"],
+      ["C4 C4 D4 E4 E4:1.5 D4:.5 D4:2", "God of glo- ry, Lord of love;", "C:4 G:4"],
+      ["E4 E4 F4 G4 G4 F4 E4 D4", "Hearts un- fold like flowers be- fore Thee,", "C:4 G:4"],
+      ["C4 C4 D4 E4 D4:1.5 C4:.5 C4:2", "Op'- ning to the sun a- bove.", "C:4 G:2 C:2"] ] },
+    { id: "grace", genre: "gospel", title: "Amazing Grace", credit: "Words John Newton, 1779 · tune “New Britain”, 1829", bpm: 84, bar: 3, pickup: 1, countIn: 5, lines: [
+      ["G4 C5:2 E5:.5 C5:.5 E5:2 D5 C5:2 A4 G4:2", "A- maz- ing ~ grace, how sweet the sound", "-:1 C:6 F:3 C:2"],
+      ["G4 C5:2 E5:.5 C5:.5 E5:2 D5 G5:4 -", "that saved a ~ wretch like me!", "C:7 G:5"],
+      ["E5 G5:2 E5:.5 C5:.5 E5:2 D5 C5:2 A4 G4:2", "I once was ~ lost, but now am found,", "G:1 C:6 F:3 C:2"],
+      ["G4 C5:2 E5:.5 C5:.5 E5:2 D5 C5:5", "was blind, but ~ now I see.", "C:4 G:3 C:5"] ] }
+  ];
+
+  // Turns a song into one step list (count-in rests, then the melody), a meta entry per step for the screen,
+  // and backing events (count-in ticks, then bass on downbeats and chord changes, pad chords between).
+  function buildKaraoke(song) {
+    const { bar, countIn } = song, pulse = song.pulse || 1, pickup = song.pickup || 0;
+    const steps = [], meta = [], backing = [], lines = [], timeline = [];
+    for (let k = 0; k < countIn; k += pulse) {
+      steps.push(["-", pulse]);
+      meta.push({ count: (countIn - k) / pulse });
+      backing.push({ at: k, freq: hz(k ? "G5" : "C6"), beats: .1, tone: TICK });
+    }
+    let total = 0;
+    song.lines.forEach(([notes, words, chords], li) => {
+      const where = `${song.title}, line ${li + 1}`;
+      const melody = seq(notes), toks = words.trim().split(/\s+/);
+      lines.push(toks.filter(x => x !== "~").map(x => ({ text: x.replace(/-$/, ""), join: x.endsWith("-") })));
+      if (toks[0] === "~") console.warn(`Karaoke: ${where} starts with ~`);
+      if (melody.filter(x => x[0] !== "-").length !== toks.length) console.warn(`Karaoke: ${where} has a different number of notes and syllables`);
+      let s = -1, ti = 0, beats = 0;
+      for (const st of melody) {
+        steps.push(st);
+        beats += st[1];
+        if (st[0] === "-") { meta.push(null); continue; }
+        if (toks[ti++] !== "~") s++;
+        meta.push({ line: li, syl: s });
+      }
+      let cb = 0;
+      for (const [name, b] of seq(chords)) { timeline.push([name, total + cb]); cb += b; }
+      if (Math.abs(cb - beats) > 1e-6) console.warn(`Karaoke: ${where} has ${beats} melody beats but ${cb} chord beats`);
+      total += beats;
+    });
+    return { steps, meta, ticks: backing, lines, timeline, total };
+  }
+
+  // Turns the chord timeline into one style's backing, timed in beats from the start (after the count-in).
+  function buildBacking(song, k, style) {
+    const { bar, countIn } = song, pulse = song.pulse || 1, pickup = song.pickup || 0;
+    const sub = pulse === 3 ? 1 : .5, np = bar / pulse, eps = 1e-6;
+    const out = k.ticks.slice();
+    let prev = null, ci = 0;
+    for (let p = 0; p < k.total - eps; p += sub) {
+      while (ci + 1 < k.timeline.length && k.timeline[ci + 1][1] <= p + eps) ci++;
+      const name = k.timeline[ci][0];
+      const change = name !== prev;
+      prev = name;
+      if (name === "-") continue;
+      const inBar = ((p - pickup) % bar + bar) % bar;
+      const n = Math.floor(inBar / pulse + eps);
+      const nextChord = ci + 1 < k.timeline.length ? k.timeline[ci + 1][1] : k.total;
+      STYLES[style].play({
+        ch: CHORDS[name], n, np, pulse, sub, change,
+        k: Math.round((inBar - n * pulse) / sub), step: Math.round(inBar / sub),
+        hold: Math.min(nextChord - p, bar - inBar),
+        swing: pulse === 1 ? 1 / 6 : 0,
+        notes: (names, beats, tn, delay = 0) => names.forEach(nm => out.push({ at: countIn + p + delay, freq: hz(nm), beats, tone: tn })),
+        hit: (d, delay = 0) => out.push({ at: countIn + p + delay, drum: d })
+      });
+    }
+    return out;
+  }
+
+  const kSong = document.getElementById("kSong");
+  const kTempo = document.getElementById("kTempo");
+  const kStyle = document.getElementById("kStyle");
+  const kPlay = document.getElementById("kPlay");
+  const kTitle = document.getElementById("kTitle");
+  const kWords = document.getElementById("kWords");
+  const kNext = document.getElementById("kNext");
+  const kBall = document.getElementById("kBall");
+  const kAll = document.getElementById("kAll");
+  const kYt = document.getElementById("kYt");
+  const kStep = document.getElementById("kStep");
+  // YouTube can't be embedded in the published page, so tracks are search links that open in a new tab.
+  const ytSearch = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+
+  document.getElementById("kCrown").innerHTML = [26, 34, 44, 34, 26].map((sz, i) => flower({ petals: [5, 8, 6][i % 3], color: PETALS[(i + 2) % 4], size: sz })).join("");
+  document.querySelectorAll(".speaker").forEach(sp => {
+    sp.innerHTML = flower({ petals: 8, color: "var(--petal-3)", size: 64 }) +
+      `<div class="row">${flower({ petals: 5, color: "var(--petal-2)", size: 24 })}${flower({ petals: 5, color: "var(--petal-4)", size: 24 })}</div>`;
+  });
+  kBall.firstElementChild.innerHTML = flower({ petals: 5, color: "var(--petal-1)", size: 22 });
+  // Songs are grouped by genre in the picker, in the same order as the styles.
+  Object.entries(STYLES).forEach(([id, st]) => {
+    kStyle.add(new Option(st.name, id));
+    const group = document.createElement("optgroup");
+    group.label = st.name;
+    KARAOKE.filter(s => s.genre === id).forEach(s => group.appendChild(new Option(s.title, s.id)));
+    if (group.children.length) kSong.appendChild(group);
+  });
+  kStyle.value = KARAOKE.find(s => s.id === kSong.value).genre;
+
+  const built = {};
+  const current = () => KARAOKE.find(s => s.id === kSong.value);
+  const getBuilt = song => built[song.id] ||= buildKaraoke(song);
+  const backings = {};
+  const getBacking = (song, style) => backings[song.id + "/" + style] ||= buildBacking(song, getBuilt(song), style);
+  const lineText = syls => syls ? syls.map(s => s.text + (s.join ? "" : " ")).join("").trim() : "✿";
+  let cur = null, shownLine = -1, stepLine = -1;
+
+  function renderWords(syls) {
+    kWords.textContent = "";
+    syls.forEach((s, k) => {
+      const span = document.createElement("span");
+      span.textContent = s.text;
+      kWords.appendChild(span);
+      if (!s.join && k < syls.length - 1) kWords.append(" ");
+    });
+  }
+  function moveBall(span, dur, jump) {
+    kBall.hidden = false;
+    kBall.classList.toggle("jump", jump);
+    kBall.style.transform = `translate(${span.offsetLeft + span.offsetWidth / 2}px, ${span.offsetTop}px)`;
+    if (!reduced) kBall.firstElementChild.animate(
+      [{ transform: "translateY(0)" }, { transform: "translateY(-12px)" }, { transform: "translateY(0)" }],
+      { duration: Math.min(dur * 1000, 450), easing: "ease-out" });
+  }
+  function onStep(i, dur) {
+    const m = cur.meta[i];
+    if (!m) return;
+    if (m.count) {
+      kWords.textContent = String(m.count);
+      kNext.textContent = lineText(cur.lines[0]);
+      kBall.hidden = true;
+      shownLine = -1;
+      return;
+    }
+    const fresh = m.line !== shownLine;
+    if (fresh) {
+      shownLine = m.line;
+      renderWords(cur.lines[m.line]);
+      kNext.textContent = lineText(cur.lines[m.line + 1]);
+    }
+    const spans = kWords.children;
+    for (let k = 0; k < spans.length; k++) spans[k].className = k < m.syl ? "sung" : k === m.syl ? "now" : "";
+    moveBall(spans[m.syl], dur, fresh);
+  }
+  function idle(ended) {
+    const song = current();
+    cur = getBuilt(song);
+    shownLine = -1;
+    stepLine = -1;
+    kTitle.textContent = `${song.title} · ${STYLES[kStyle.value].name}`;
+    kYt.href = ytSearch(song.title.replace(/\s*\(.*\)/, "") + " " + STYLES[kStyle.value].yt);
+    kBall.hidden = true;
+    if (ended) {
+      kWords.textContent = "✿ Bravo! ✿";
+      kNext.textContent = "Pick another song";
+    } else {
+      renderWords(cur.lines[0]);
+      kNext.textContent = lineText(cur.lines[1]);
+    }
+  }
+  function renderAll() {
+    const song = current();
+    kAll.textContent = "";
+    getBuilt(song).lines.forEach(syls => {
+      const p = document.createElement("p");
+      p.textContent = lineText(syls);
+      kAll.appendChild(p);
+    });
+    const credit = document.createElement("p");
+    credit.className = "hint";
+    credit.textContent = song.credit;
+    kAll.appendChild(credit);
+  }
+  function karaokeArgs() {
+    const song = current();
+    cur = getBuilt(song);
+    const mode = document.querySelector('input[name="kMode"]:checked').value;
+    return [cur.steps, song.bpm * parseFloat(kTempo.value), { mute: mode === "backing", backing: getBacking(song, kStyle.value), onStep, onStop: idle }];
+  }
+
+  kPlay.addEventListener("click", () => {
+    const [steps, bpm, opts] = karaokeArgs();
+    toggle(kPlay, steps, bpm, opts);
+  });
+  // Changing the song, mode or tempo mid-song restarts it rather than rescheduling the audio.
+  const restart = () => {
+    if (activeBtn === kPlay) {
+      const [steps, bpm, opts] = karaokeArgs();
+      playSeq(steps, bpm, kPlay, opts);
+    } else idle(false);
+  };
+  // A new song brings its own genre's style; the Style menu can still change it afterwards.
+  kSong.addEventListener("change", () => { kStyle.value = current().genre; renderAll(); restart(); });
+  kTempo.addEventListener("change", restart);
+  kStyle.addEventListener("change", restart);
+  document.querySelectorAll('input[name="kMode"]').forEach(r => r.addEventListener("change", restart));
+  // Tap-along mode for a YouTube track: no synth, each tap lights the next whole line.
+  kStep.addEventListener("click", () => {
+    if (activeBtn) stopSeq();
+    if (!cur) idle(false);
+    stepLine = (stepLine + 1) % cur.lines.length;
+    kBall.hidden = true;
+    renderWords(cur.lines[stepLine]);
+    for (const s of kWords.children) s.className = "now";
+    kNext.textContent = lineText(cur.lines[stepLine + 1]);
+  });
+  idle(false);
+  renderAll();
 
   // ---------- warm-ups ----------
   const WARMUPS = [
@@ -568,5 +1116,66 @@
     `<div class="tip-group"><h3>${title}</h3><ul>${items.map((t, j) =>
       `<li>${flower({ petals: 5, color: PETALS[(i + j) % 4] })}<span>${t}</span></li>`).join("")}</ul></div>`
   ).join("");
+
+  // ---------- genres: a tile per genre on the home view, and a page per genre at #<id> ----------
+  // track: what to add to a song's YouTube search to find a backing track for that style.
+  const GENRES = [
+    { id: "pop", name: "Pop", sound: "Bright, speech-like and catchy, close to the mic.", tips: ["Sing the words the way you’d say them. Clear, natural vowels win.", "Use a light breathy onset on soft lines, then brighten for the chorus.", "Keep runs small and tidy. Pop loves a clean, simple hook."], voices: ["Taylor Swift", "Ariana Grande", "Ed Sheeran"], songs: ["“Shake It Off”, Taylor Swift", "“Firework”, Katy Perry", "“Count on Me”, Bruno Mars"], track: "karaoke instrumental", steps: "E4:.5 G4:.5 A4 G4:.5 E4:.5 D4 E4:2", bpm: 112 },
+    { id: "rnb", name: "R&B / Soul", sound: "Warm, rich and full of runs and riffs.", tips: ["Practice runs slowly on “ah”, then speed them up note by note.", "Lean into the groove. Sing slightly behind the beat.", "Bend into notes from below for that soulful scoop."], voices: ["Aretha Franklin", "Stevie Wonder", "Beyoncé"], songs: ["“Respect”, Aretha Franklin", "“Ain’t No Sunshine”, Bill Withers", "“If I Ain’t Got You”, Alicia Keys"], track: "karaoke instrumental", steps: "G5:.25 F5:.25 E5:.25 D5:.25 C5:.5 A4:.5 C5:1.5:D5 - A4:.5 G4:2", bpm: 84 },
+    { id: "theatre", name: "Musical Theatre", sound: "Story first, with a strong, bright belt and clear words.", tips: ["Know what your character wants in every line.", "Crisp consonants carry the story to the back row.", "Build mix voice so high notes stay bright without shouting."], voices: ["Idina Menzel", "Lea Salonga", "Audra McDonald"], songs: ["“On My Own”, Les Misérables", "“Defying Gravity”, Wicked", "“Tomorrow”, Annie"], track: "karaoke instrumental", steps: "C5:1.5 G4:.5 A4 C5 D5 E5:2 D5 C5:3", bpm: 100 },
+    { id: "jazz", name: "Jazz", sound: "Relaxed, swinging and playful with the melody.", tips: ["Swing your eighth notes: long-short, long-short.", "Try scat on easy syllables like “doo”, “bah” and “dat”.", "Change the rhythm or a note now and then. Make the tune yours."], voices: ["Ella Fitzgerald", "Billie Holiday", "Frank Sinatra"], songs: ["“Fly Me to the Moon”, Frank Sinatra", "“Summertime”, Ella Fitzgerald", "“Dream a Little Dream of Me”, Ella Fitzgerald"], track: "jazz backing track", steps: "C5:.67 A4:.33 G4:.67 E4:.33 G4:.67 A4:.33 B4:1:C5 A4:2", bpm: 120 },
+    { id: "country", name: "Country", sound: "Honest storytelling with a twang and gentle slides.", tips: ["Let a little twang in by brightening your vowels toward “eh”.", "Slide up into key words for feeling.", "Tell the story plainly. Every lyric should sound true."], voices: ["Dolly Parton", "Patsy Cline", "Carrie Underwood"], songs: ["“Jolene”, Dolly Parton", "“Before He Cheats”, Carrie Underwood", "“Take Me Home, Country Roads”, John Denver"], track: "karaoke instrumental", steps: "D4:1:E4 G4 G4 A4 B4:1.5:C5 A4:.5 G4:2", bpm: 104 },
+    { id: "rock", name: "Rock", sound: "Big energy and grit, driven by rhythm.", tips: ["Power comes from breath support, not from squeezing your throat.", "Add grit only gently, and stop if anything scratches or hurts.", "Punch the consonants on the beat to ride the drums."], voices: ["Freddie Mercury", "Ann Wilson", "Steve Perry"], songs: ["“Don’t Stop Believin’”, Journey", "“I Love Rock ’n’ Roll”, Joan Jett", "“Livin’ on a Prayer”, Bon Jovi"], track: "karaoke instrumental", steps: "E4:.5 E4:.5 G4 A4:.5 A4:.5 C5:1.5 B4:.5 A4 - E4:.5 G4:.5 A4:2", bpm: 132 },
+    { id: "gospel", name: "Gospel", sound: "Joyful, soaring and full of heart, often call-and-response.", tips: ["Breathe deep and sing from your whole body.", "Build each repeat bigger than the last.", "Add melisma at the ends of phrases once the melody is solid."], voices: ["Mahalia Jackson", "CeCe Winans", "Yolanda Adams"], songs: ["“Oh Happy Day”, Edwin Hawkins Singers", "“Amazing Grace”, traditional", "“This Little Light of Mine”, traditional"], track: "gospel instrumental", steps: "C5 E5:.5 D5:.5 C5:.5 A4:.5 C5:2 - G4 A4 C5:1:D5 E5:3", bpm: 92 },
+    { id: "classical", name: "Classical / Opera", sound: "Pure, resonant tone with long, even legato lines.", tips: ["Keep a tall, open space in your mouth, like the start of a yawn.", "Connect every note smoothly, with no bumps between them.", "Let vibrato happen on its own. Don’t force it."], voices: ["Maria Callas", "Luciano Pavarotti", "Renée Fleming"], songs: ["“Caro mio ben”, Giordani", "“O mio babbino caro”, Puccini", "“Ave Maria”, Schubert"], track: "piano accompaniment", steps: "G4:2 C5:2 B4 A4 G4:2 E5:3 D5 C5:4", bpm: 72 }
+  ];
+  const byId = id => document.getElementById(id);
+  byId("genreCards").innerHTML = GENRES.map(g =>
+    `<a class="card genre-link" href="#${g.id}"><h3>${g.name}</h3><span class="pattern">${g.sound}</span><span class="go">Open the ${g.name} page →</span></a>`
+  ).join("");
+
+  const home = byId("home"), genrePage = byId("genrePage"), gLick = byId("gLick");
+  let gCur = null;
+  gLick.addEventListener("click", () => toggle(gLick, seq(gCur.steps), gCur.bpm));
+  // Each genre id is also a karaoke style, so this loads a song and style from that genre before the link scrolls to the machine.
+  byId("gKaraoke").addEventListener("click", () => {
+    const song = KARAOKE.find(s => s.genre === gCur.id);
+    if (song) kSong.value = song.id;
+    kStyle.value = gCur.id;
+    renderAll();
+    idle(false);
+  });
+
+  function showGenre(i) {
+    const g = gCur = GENRES[i];
+    byId("gCount").textContent = `Genre ${i + 1} of ${GENRES.length}`;
+    byId("gName").textContent = g.name;
+    byId("gSound").textContent = g.sound;
+    byId("gKaraoke").textContent = `🎤 Sing karaoke, ${g.name} style`;
+    byId("gCluster").innerHTML = [36, 52, 68, 52, 36].map((sz, k) => flower({ petals: [5, 6, 8][(i + k) % 3], color: PETALS[(i + k) % 4], size: sz })).join("");
+    byId("gTips").innerHTML = g.tips.map(t => `<li>${t}</li>`).join("");
+    byId("gVoices").innerHTML = g.voices.map(v => `<li>${v}</li>`).join("");
+    byId("gTracks").innerHTML = g.songs.map(s =>
+      `<li><span>${s}</span><a class="yt" href="${ytSearch(s.replace(/[“”]/g, "") + " " + g.track)}" target="_blank" rel="noopener">▶ Find on YouTube ↗</a></li>`).join("");
+    const prev = GENRES[(i + GENRES.length - 1) % GENRES.length], next = GENRES[(i + 1) % GENRES.length];
+    byId("gPrev").href = "#" + prev.id;
+    byId("gPrev").textContent = "← " + prev.name;
+    byId("gNext").href = "#" + next.id;
+    byId("gNext").textContent = next.name + " →";
+  }
+  function route() {
+    const hash = location.hash.slice(1);
+    const i = GENRES.findIndex(g => g.id === hash);
+    stopSeq();
+    home.hidden = i >= 0;
+    genrePage.hidden = i < 0;
+    if (i >= 0) {
+      showGenre(i);
+      scrollTo(0, 0);
+      byId("gName").focus({ preventScroll: true });
+    } else if (hash) byId(hash)?.scrollIntoView();
+  }
+  addEventListener("hashchange", route);
+  route();
 })();
 </script>

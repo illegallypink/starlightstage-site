@@ -1,0 +1,430 @@
+// Built-in songs for Starlight Stage. All titles, artists, lyrics and melodies are originals written for this game.
+window.SONGS = [
+  // ---------------- POP ----------------
+  {
+    id: "neon-heart",
+    title: "Neon Heart",
+    artist: "Nova Rae",
+    genre: "pop",
+    bpm: 112,
+    difficulty: 1,
+    colors: ["#ff4fd8", "#7a5cff"],
+    chords: ["Am", "F", "C", "G"],
+    intro: 2,
+    lines: [
+      { notes: "E4:1 E4:.5 D4:.5 C4:1 E4:1 D4:1 B3:.5 C4:.5 D4:1 -:1", words: "Ne- on lights are shin- ing on the street" },
+      { notes: "C4:1 C4:.5 D4:.5 E4:1 A4:1 A4:1 G4:.5 F4:.5 F4:1 -:1", words: "Ev- ery win- dow hums a rhy- thm sweet" },
+      { notes: "G4:1 G4:.5 E4:.5 G4:1 C5:1 B4:1 A4:.5 G4:.5 D4:1 -:1", words: "Got my sneak- ers tap- ping to the beat" },
+      { notes: "A4:1 G4:1 C4:1 E4:1 F4:2 -:2", words: "Spin- ning, I'm a star!" },
+      { notes: "E4:.5 E4:.5 E4:.5 D4:.5 C4:1 E4:1 D4:1 D4:.5 B3:.5 D4:2", words: "The moon is out and gold- en, side- walk glows" },
+      { notes: "C4:1 E4:1 A4:1 G4:1 F4:1 A4:1 C5:1 -:1", words: "Hey, here comes the cho- rus, go!" },
+      { notes: "G4:1.5 E4:.5 G4:1 C5:1 B4:1.5 A4:.5 G4:1 -:1", words: "Ne- on heart, it's light- ing up" },
+      { notes: "A4:1.5 G4:.5 E4:1 C4:1 F4:1 G4:1 A4:1 -:1", words: "Ev- ery col- or, ev- ery night" },
+      { notes: "G4:1.5 E4:.5 G4:1 C5:1 B4:1.5 A4:.5 G4:1 -:1", words: "Ne- on heart, turn it up loud" },
+      { notes: "A4:1 A4:1 C5:1 A4:1 A4:1 G4:.5 F4:.5 F4:2", words: "Come and sing it with the crowd now" },
+      { notes: "G4:1.5 E4:.5 G4:1 C5:1 B4:1.5 A4:.5 G4:1 -:1", words: "Ne- on heart, beat- ing so bright" },
+      { notes: "C5:1 B4:.5 A4:.5 E4:1 C4:1 F4:2 -:2", words: "Ne- on heart, you're my star" }
+    ]
+  },
+  {
+    id: "bubblegum-rocket",
+    title: "Bubblegum Rocket",
+    artist: "Sunny Sparks",
+    genre: "pop",
+    bpm: 120,
+    difficulty: 2,
+    colors: ["#ff7ac8", "#3ad1ff"],
+    chords: ["Em", "C", "G", "D"],
+    intro: 2,
+    lines: [
+      { notes: "B4:.5 B4:.5 A4:.5 G4:.5 D4:1 G4:1 A4:1 F#4:.5 E4:.5 D4:2", words: "Zip my space suit up, check the count- down clock" },
+      { notes: "E4:.5 E4:.5 G4:.5 B4:.5 B4:1 A4:1 G4:1 E4:.5 D4:.5 E4:2", words: "Ten, nine, eight, sev- en, here we go, tick tock" },
+      { notes: "D4:.5 G4:.5 G4:.5 G4:.5 B4:1 G4:1 A4:1 F#4:.5 A4:.5 D5:2", words: "Bub- ble- gum ro- cket, pink and pur- ple flame" },
+      { notes: "B4:1 G4:.5 E4:.5 E4:1 G4:1 E4:.5 E4:.5 G4:1 C5:1 -:1", words: "Wav- ing at the moon, it knows my name" },
+      { notes: "D5:1 B4:1 G4:1 B4:1 A4:1.5 F#4:.5 D4:1 -:1", words: "Blast off, blast off, ro- cket ride" },
+      { notes: "E4:1 G4:1 B4:1 G4:1 C5:1.5 B4:.5 G4:1 -:1", words: "Bub- ble- gum and stars col- lide" },
+      { notes: "D5:1 B4:1 G4:1 B4:1 A4:1.5 F#4:.5 D4:1 -:1", words: "Count- down, count- down, hold on tight" },
+      { notes: "B4:1 B4:.5 A4:.5 G4:1 E4:1 E4:1 D4:.5 C4:.5 C4:2", words: "We'll be home by sup- per- time to- night" },
+      { notes: "D5:1 B4:1 G4:1 B4:1 A4:1.5 F#4:.5 D4:1 -:1", words: "Blast off, blast off, wave good- bye" },
+      { notes: "E4:1 G4:1 B4:1 G4:1 C5:1.5 B4:.5 G4:1 -:1", words: "Pink and pur- ple in the sky" },
+      { notes: "D5:1 B4:1 G4:1 B4:1 A4:1.5 F#4:.5 D4:1 -:1", words: "Count- down, count- down, here we fly" },
+      { notes: "E4:1 G4:1 B4:1 A4:1 G4:4", words: "Bub- ble- gum ro- cket!" }
+    ]
+  },
+  {
+    id: "paper-crown-party",
+    title: "Paper Crown Party",
+    artist: "Jojo Comet",
+    genre: "pop",
+    bpm: 104,
+    difficulty: 3,
+    colors: ["#ffd23f", "#ff5e8a"],
+    chords: ["F", "C", "Dm", "Bb"],
+    intro: 4,
+    lines: [
+      { notes: "C4:.5 F4:.5 F4:.5 G4:.25 A4:.25 A4:1 C5:1 C5:.5 Bb4:.5 A4:.5 G4:.5 E4:1 C4:1", words: "Got a pa- per crown and glit- ter glue all o- ver me" },
+      { notes: "D4:.5 F4:.5 A4:.5 A4:.5 A4:.5 G4:.5 F4:.5 D4:.5 D4:1 F4:.5 E4:.5 D4:.5 Bb3:1.5", words: "Danc- ing in the kitch- en, Grand- ma's clap- ping to the band" },
+      { notes: "C4:.5 F4:.5 F4:.5 G4:.25 A4:.25 A4:1 C5:1 C5:.5 Bb4:.5 A4:.5 G4:.5 E4:1 C4:1", words: "Ev- ery- bod- y is in- vi- ted, ev- ery- one can come" },
+      { notes: "F4:.5 A4:.5 D5:.5 C5:.5 A4:1 F4:1 F4:1 D4:1 F4:2", words: "Grab a crown and come and have some fun" },
+      { notes: "A4:.5 C5:.5 D5:.75 C5:.25 C5:.5 A4:.5 F4:1 C5:.5 C5:.5 G4:.5 E4:.5 G4:2", words: "Pa- per crown, pa- per crown, I'm roy- al for a day" },
+      { notes: "A4:.5 A4:.5 A4:.5 G4:.5 F4:1 D4:1 F4:.5 F4:.5 G4:.5 F4:.5 D4:2", words: "Ev- ery- bod- y bow and twirl, then shout, hoo- ray!" },
+      { notes: "A4:.5 C5:.5 D5:.75 C5:.25 C5:.5 A4:.5 F4:1 C5:.5 C5:.5 G4:.5 E4:.5 G4:2", words: "Pa- per crown, pa- per crown, let the band start to play" },
+      { notes: "D5:1 C5:.5 A4:.5 A4:1 F4:1 F4:1.5 D4:.5 F4:2", words: "We're the roy- al fam- i- ly, yeah!" },
+      { notes: "A4:.5 C5:.5 D5:.75 C5:.25 C5:.5 A4:.5 F4:1 C5:.5 C5:.5 G4:.5 E4:.5 G4:2", words: "Pa- per crown, pa- per crown, shine on in ev- ery way" },
+      { notes: "D5:1 C5:.5 A4:.5 A4:1 F4:1 F4:1.5 D4:.5 F4:2", words: "Long live the par- ty, hip hoo- ray!" }
+    ]
+  },
+
+  // ---------------- R&B ----------------
+  {
+    id: "velvet-evening",
+    title: "Velvet Evening",
+    artist: "Jaylen Silk",
+    genre: "rnb",
+    bpm: 76,
+    difficulty: 2,
+    colors: ["#b84dff", "#ff6fb5"],
+    chords: ["Cmaj7", "Am7", "Dm7", "G7"],
+    intro: 2,
+    lines: [
+      { notes: "A4:1 A4:.5 C5:.5 A4:1 F4:1 G4:1 F4:.5 E4:.5 D4:2", words: "The street- lights hum, the eve- ning's slow ~" },
+      { notes: "E4:1 G4:.5 B4:.5 B4:1 A4:.5 G4:.5 E4:1 C5:.5 B4:.5 A4:2", words: "Old ra- di- o is sing- ing to the room" },
+      { notes: "A4:1 A4:.5 C5:.5 A4:1 F4:1 G4:1 F4:.5 E4:.5 D4:2", words: "I pour some co- coa, nice and slow ~" },
+      { notes: "G4:1 E4:1 C5:1 B4:.5 A4:.5 G4:4", words: "Ev- ery- thing is smooth ~" },
+      { notes: "F4:.5 A4:.5 C5:1 C5:.5 D5:.5 C5:.5 A4:.5 B4:1 A4:.5 G4:.5 G4:2", words: "Vel- vet eve- ning, wrap me up, oh ~ ~ yeah" },
+      { notes: "E4:.5 G4:.5 B4:1 G4:.5 E4:.5 C4:1 E4:1 G4:.5 A4:.5 A4:2", words: "Hum- ming with the moon- light, dream- ing it true" },
+      { notes: "F4:.5 A4:.5 C5:1 C5:.5 D5:.5 C5:.5 A4:.5 B4:1 A4:.5 G4:.5 G4:2", words: "Vel- vet eve- ning, sing it now, oh ~ ~ yeah" },
+      { notes: "G4:1 B4:1 C5:1 B4:.5 A4:.5 A4:1 G4:1 E4:2", words: "Vel- vet eve- ning, ooh ~ ~ ~" }
+    ]
+  },
+  {
+    id: "honey-on-the-moon",
+    title: "Honey on the Moon",
+    artist: "Mila Velour",
+    genre: "rnb",
+    bpm: 84,
+    difficulty: 1,
+    colors: ["#ffb347", "#ff5fa2"],
+    chords: ["Gm7", "C7", "Fmaj7", "Dm7"],
+    intro: 2,
+    lines: [
+      { notes: "C4:1 F4:1 A4:1 G4:1 F4:2 D4:1 -:1", words: "Sun- shine on my win- dow" },
+      { notes: "D4:1 F4:1 G4:1 Bb4:1 G4:2 E4:1 -:1", words: "Bird- ies sing- ing hel- lo" },
+      { notes: "C4:1 F4:1 A4:1 G4:1 F4:2 D4:1 -:1", words: "Toast and jam for break- fast" },
+      { notes: "D4:1 F4:1 G4:1 A4:1 G4:1 F4:1 E4:2", words: "No- where I need to go ~" },
+      { notes: "A4:1 C5:1 A4:1.5 G4:.5 A4:1 F4:1 D4:2", words: "Hon- ey on the moon, oh ~" },
+      { notes: "Bb4:1 A4:1 G4:1 F4:1 E4:1 G4:1 C5:2", words: "Sweet- er than a lul- la- by" },
+      { notes: "A4:1 C5:1 A4:1.5 G4:.5 A4:1 F4:1 D4:2", words: "Hon- ey on the moon, mm ~" },
+      { notes: "D4:1 F4:1 G4:1 F4:1 E4:1 D4:.5 E4:.5 C4:2", words: "Float- ing up so high, oh ~ ~" }
+    ]
+  },
+  {
+    id: "satin-skyline",
+    title: "Satin Skyline",
+    artist: "Dre Lavender",
+    genre: "rnb",
+    bpm: 72,
+    difficulty: 3,
+    colors: ["#6a5cff", "#ff8ad8"],
+    chords: ["Am7", "B7", "Em7", "Cmaj7"],
+    intro: 2,
+    lines: [
+      { notes: "B4:.5 B4:.5 A4:.25 G4:.25 E4:.5 G4:1 B4:1 C5:.5 B4:.5 G4:.5 E4:.5 E4:1 -:1", words: "Sat- in sky- line, shim- mer- ing in ~ ~ the blue" },
+      { notes: "A4:.5 C5:.5 E5:.5 D5:.25 C5:.25 A4:1 G4:1 F#4:.5 A4:.5 B4:.5 A4:.5 F#4:1 D#4:1", words: "Ci- ty lights are call- ing, yeah ~ ~, come out and play" },
+      { notes: "B4:.5 B4:.5 A4:.25 G4:.25 E4:.5 G4:1 B4:1 C5:.5 B4:.5 G4:.5 E4:.5 E4:1 -:1", words: "Danc- ing slow- ly, un- der- neath the ~ ~ ~ moon" },
+      { notes: "E5:.5 D5:.5 C5:.5 B4:.5 A4:1 G4:.5 E4:.5 F#4:1 -:3", words: "Oh ~ ~ ~ ~ ~ ~ yeah" },
+      { notes: "G4:.5 B4:.5 D5:1 B4:.5 G4:.5 B4:1 C5:.5 B4:.25 A4:.25 G4:1 E4:2", words: "Sat- in sky- line, come and shine your ~ ~ light" },
+      { notes: "A4:.5 C5:.5 E5:1 E5:.5 D5:.5 C5:1 B4:.5 A4:.5 F#4:1 D#4:.5 F#4:.5 A4:.5 B4:.5", words: "Ev- ery star is wink- ing as we glide in- to the night" },
+      { notes: "G4:.5 B4:.5 D5:1 B4:.5 G4:.5 B4:1 C5:.5 B4:.25 A4:.25 G4:1 E4:2", words: "Sat- in sky- line, come and take me ~ ~ high" },
+      { notes: "C5:1 B4:.5 A4:.5 E4:1 G4:.5 A4:.5 B4:4", words: "Sat- in sky- line ~ ~ high" }
+    ]
+  },
+  // ---------------- RAP ----------------
+  {
+    id: "pixel-power-up",
+    title: "Pixel Power-Up",
+    artist: "Lil Pixel",
+    genre: "rap",
+    bpm: 90,
+    difficulty: 1,
+    colors: ["#38f9d7", "#7a5cff"],
+    chords: ["C", "G", "Am", "F"],
+    intro: 2,
+    lines: [
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Load- ing up the lev- el with con- trol- ler in my hand" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Jump- ing o- ver lav- a, I'm the cap- tain of the land" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Col- lect- ing all the coins, yeah I'm stack- ing up the gold" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Smash- ing ev- ery mys- tery block, I'm feel- ing brave and bold" },
+      { notes: "A4:1 C5:1 E5:1 C5:1 C5:1 A4:1 F4:1 -:1", words: "Pix- el pow- er, lev- el up!" },
+      { notes: "G4:1 E4:1 C4:1 E4:1 D4:1 G4:1 B4:1 -:1", words: "Press the start, it's time to play" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Dodg- ing gi- ant ro- bots, zip- ping through a se- cret door" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "High score on the lead- er- board, I'm cheer- ing ev- en more" },
+      { notes: "A4:1 C5:1 E5:1 C5:1 C5:1 A4:1 F4:1 -:1", words: "Pix- el pow- er, lev- el up!" },
+      { notes: "G4:1 E4:1 C4:1 E4:1 D4:2 G4:2", words: "Lil Pix- el saves the day!" }
+    ]
+  },
+  {
+    id: "lunchbox-legend",
+    title: "Lunchbox Legend",
+    artist: "MC Marshmallow",
+    genre: "rap",
+    bpm: 88,
+    difficulty: 2,
+    colors: ["#ffcf3f", "#ff6b6b"],
+    chords: ["Dm", "Bb", "F", "C"],
+    intro: 2,
+    lines: [
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Snap the lunch- box o- pen, got a feast for me and you" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Ap- ple slic- es crunch- ing, that's the rhy- thm of the crew" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Trad- ing all my crack- ers for a cook- ie with a grin" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Ca- fe- te- ri- a is rock- ing, let the lunch- time beat be- gin" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Spilled the choc- 'late milk, but hey, I clean it up in style" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Lunch lad- y gave a thumbs- up and a ma- ca- ro- ni smile" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Lunch- box Le- gend, Lunch- box Le- gend, ev- ery- bod- y shout it loud" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Bang the ta- ble like a drum and make the whole re- cess proud" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Lunch- box Le- gend, Lunch- box Le- gend, munch- ing to the beat" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "Rap- ping on my ap- ple, now the lunch- time is com- plete" }
+    ]
+  },
+  {
+    id: "skateboard-science",
+    title: "Skateboard Science",
+    artist: "Captain Kicks",
+    genre: "rap",
+    bpm: 94,
+    difficulty: 3,
+    colors: ["#00e5ff", "#ff3dbb"],
+    chords: ["Em", "C", "G", "D"],
+    intro: 2,
+    lines: [
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:1 -:.5", words: "Kick- flip on the ramp, I'm cal- cu- lat- ing all the an- gles in my head" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Grav- i- ty is pull- ing but I'm fly- ing like a fal- con in- stead" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:1 -:.5", words: "Wheels are spin- ning fast- er than a hum- ming- bird a- flut- ter in the breeze" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Land it on the rail and then I glide a- way as smooth as you please" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:1 -:.5", words: "Hel- met on my nog- gin, knee pads, el- bow pads, I'm safe- ty first, you know" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Sci- ence class is fun when it's the skate- park where we put on a show" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:1 -:.5", words: "Mo- men- tum, mo- men- tum, I'm a roll- ing ex- per- i- ment, watch me go" },
+      { notes: "x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:1", words: "New- ton would be proud of how I ride and how I flow" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Push, push, roll it, roll it, mix the force with a lit- tle bit of fun" },
+      { notes: "x:.5 x:.25 x:.25 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:.5 x:1 -:.5", words: "Skate- board sci- ence, that's the les- son, and the les- son's num- ber one" }
+    ]
+  },
+
+  // ---------------- GOSPEL ----------------
+  {
+    id: "hallelujah-sunrise",
+    title: "Hallelujah Sunrise",
+    artist: "Sister Grace Harmony",
+    genre: "gospel",
+    bpm: 96,
+    difficulty: 1,
+    colors: ["#ffb800", "#ff5fa2"],
+    chords: ["G", "C", "D", "G"],
+    intro: 4,
+    lines: [
+      { notes: "D4:1 G4:1 G4:1 A4:1 G4:1 E4:1 C4:1 -:1", words: "Woke up this morn- ing sing- ing" },
+      { notes: "F#4:1 A4:1 D4:1 F#4:1 G4:2 -:2", words: "(Sing- ing, oh yes, Lord!)" },
+      { notes: "D4:1 G4:1 G4:.5 G4:.5 A4:1 G4:1 E4:1 C4:1 -:1", words: "Sun- light pour- ing through the win- dow" },
+      { notes: "F#4:1 A4:1 D4:1 F#4:1 G4:2 -:2", words: "(Oh, through the win- dow!)" },
+      { notes: "B4:.5 B4:.5 D5:1 B4:1 G4:1 C5:1 G4:1 E4:1 -:1", words: "Hal- le- lu- jah, sun- rise glo- ry" },
+      { notes: "A4:.5 A4:.5 D5:1 A4:1 F#4:1 G4:2 -:2", words: "(Hal- le- lu- jah, oh yeah!)" },
+      { notes: "B4:.5 B4:.5 D5:1 B4:1 G4:1 E4:1 G4:1 C5:1 -:1", words: "Ev- ery- bod- y lift your voi- ces" },
+      { notes: "A4:1 F#4:1 D4:1 F#4:1 G4:2 -:2", words: "(Lift your voi- ces high!)" },
+      { notes: "B4:.5 B4:.5 D5:1 B4:1 G4:1 C5:1 G4:1 E4:1 -:1", words: "Hal- le- lu- jah, morn- ing glo- ry" },
+      { notes: "A4:1 F#4:1 D5:2 B4:4", words: "(Hal- le- lu- jah!)" }
+    ]
+  },
+  {
+    id: "mountain-top-morning",
+    title: "Mountain Top Morning",
+    artist: "The Riverside Choir Kids",
+    genre: "gospel",
+    bpm: 104,
+    difficulty: 2,
+    colors: ["#4fc3ff", "#ffd36b"],
+    chords: ["F", "Dm", "Bb", "C"],
+    intro: 4,
+    lines: [
+      { notes: "C4:.5 F4:.5 F4:.5 G4:.5 A4:1 F4:1 F4:1 A4:.5 G4:.5 F4:1 -:1", words: "I keep on climb- ing up the moun- tain side" },
+      { notes: "D4:1 F4:1 Bb4:1 A4:1 G4:1 E4:1 C4:1 -:1", words: "(Climb- ing up the moun- tain side!)" },
+      { notes: "C4:.5 F4:.5 F4:.5 G4:.5 A4:1 F4:1 F4:1 A4:.5 G4:.5 F4:1 -:1", words: "With the warm sun- shine as my faith- ful guide" },
+      { notes: "D4:1 F4:1 Bb4:1 A4:1 G4:1 E4:1 C4:1 -:1", words: "(Sun- shine as my faith- ful guide!)" },
+      { notes: "A4:.5 C5:.5 C5:1 A4:1 F4:1 A4:1 D5:1 D5:1 -:1", words: "Hal- le- lu- jah, high- er, high- er" },
+      { notes: "D5:1 Bb4:1 F4:1 D4:1 C5:1.5 G4:.5 E4:2", words: "(Take me high- er, high- er, Lord!)" },
+      { notes: "A4:.5 C5:.5 C5:1 A4:1 F4:1 A4:1 D5:1 D5:1 -:1", words: "Hal- le- lu- jah, joy is ris- ing" },
+      { notes: "D5:1 Bb4:1 F4:1 D4:1 C5:1.5 G4:.5 E4:2", words: "(Joy is ris- ing, ris- ing, Lord!)" },
+      { notes: "C5:1 C5:1 A4:1 C5:1 D5:1 C5:1 A4:2", words: "From the val- ley to the top" },
+      { notes: "D5:1 C5:1 Bb4:1 A4:1 G4:1 E4:1 C5:2", words: "(Hal- le- lu- jah, nev- er stop!)" }
+    ]
+  },
+  {
+    id: "joyful-noise-parade",
+    title: "Joyful Noise Parade",
+    artist: "Mama Jubilee",
+    genre: "gospel",
+    bpm: 88,
+    difficulty: 3,
+    colors: ["#ff8a00", "#c84dff"],
+    chords: ["C", "Am7", "Dm7", "G7"],
+    intro: 4,
+    lines: [
+      { notes: "G4:.5 C5:.5 C5:.5 D5:.25 C5:.25 E5:1 C5:1 A4:.5 C5:.5 E5:.5 D5:.25 C5:.25 A4:1 G4:1", words: "Make a joy- ful noise to- day, ev- ery- bod- y clap your hands" },
+      { notes: "A4:1 F4:.5 D4:.5 A4:2 B4:1 G4:.5 D4:.5 G4:2", words: "(Clap, clap your hands!) (Clap, clap your hands!)" },
+      { notes: "G4:.5 C5:.5 C5:.5 D5:.25 C5:.25 E5:1 C5:1 A4:.5 C5:.5 E5:.5 D5:.25 C5:.25 A4:1 G4:1", words: "Stomp your feet up- on the floor, let the hap- py mu- sic ring" },
+      { notes: "A4:1 F4:.5 D4:.5 A4:2 B4:1 G4:.5 D4:.5 G4:2", words: "(Oh, let it ring!) (Oh, let it ring!)" },
+      { notes: "E5:1 D5:.5 C5:.5 C5:1 G4:1 A4:.5 C5:.25 D5:.25 E5:1 C5:1 A4:1", words: "Oh, hal- le- lu- jah, hal- le ~ ~ lu- jah" },
+      { notes: "F4:.5 A4:.5 C5:.5 D5:.5 C5:1 A4:1 B4:.5 A4:.5 G4:1 F4:.5 D4:.5 G4:1", words: "Joy- ful noise is ris- ing up, ris- ing to the sky" },
+      { notes: "E5:1 D5:.5 C5:.5 C5:1 G4:1 A4:.5 C5:.25 D5:.25 E5:1 C5:1 A4:1", words: "Oh, hal- le- lu- jah, hal- le ~ ~ lu- jah" },
+      { notes: "A4:1 C5:.5 A4:.5 F4:.5 G4:.5 A4:.5 B4:.5 B4:.5 C5:.5 D5:1 G4:2", words: "Make it a joy- ful ~ ~ ~ noise, A- men!" }
+    ]
+  },
+  // ---------------- COUNTRY ----------------
+  {
+    id: "porch-light-lemonade",
+    title: "Porch Light Lemonade",
+    artist: "Dusty Boots",
+    genre: "country",
+    bpm: 104,
+    difficulty: 1,
+    colors: ["#ffcc4d", "#ff7a59"],
+    chords: ["G", "C", "D", "G"],
+    intro: 4,
+    lines: [
+      { notes: "D4:1 G4:1 G4:1 B4:1 C5:1 G4:1 E4:1 -:1", words: "Grand- pa's sit- tin' on the porch" },
+      { notes: "F#4:1 A4:1 A4:1 F#4:1 G4:2 -:2", words: "Fid- dle on his knee" },
+      { notes: "D4:1 G4:1 G4:1 B4:1 C5:1 G4:1 E4:1 -:1", words: "Ma- ma's mak- in' lem- on- ade" },
+      { notes: "F#4:1 A4:1 A4:1 F#4:1 G4:2 -:2", words: "Sweet as it can be" },
+      { notes: "D4:1 G4:1 G4:1 B4:1 C5:1 G4:1 E4:1 -:1", words: "Old red truck is in the yard" },
+      { notes: "F#4:1 A4:1 A4:1 F#4:1 G4:2 -:2", words: "Pup- py snooz- in' by" },
+      { notes: "B4:1 B4:1 D5:1 B4:.5 A4:.5 G4:2 E4:1 -:1", words: "Porch light and pink lem- on- ade" },
+      { notes: "A4:1 A4:1 F#4:1 A4:1 G4:2 -:2", words: "Stars come out to play" },
+      { notes: "B4:1 B4:1 D5:1 B4:.5 A4:.5 G4:2 E4:1 -:1", words: "Fire- flies and a ser- e- nade" },
+      { notes: "A4:1 F#4:1 D4:1 F#4:1 G4:4", words: "Down home, here to stay" }
+    ]
+  },
+  {
+    id: "gravel-road-rodeo",
+    title: "Gravel Road Rodeo",
+    artist: "Tumbleweed Tucker",
+    genre: "country",
+    bpm: 116,
+    difficulty: 2,
+    colors: ["#e8a33d", "#3fb6ff"],
+    chords: ["G", "A", "D", "Bm"],
+    intro: 2,
+    lines: [
+      { notes: "A3:.5 D4:.5 D4:.5 E4:.5 F#4:1 D4:1 D4:1 B3:.5 D4:.5 F#4:1 -:1", words: "We packed the truck on Sat- ur- day at dawn" },
+      { notes: "G4:.5 G4:.5 G4:.5 A4:.5 B4:1 G4:1 A4:.5 A4:.5 E4:.5 C#4:.5 A3:1 -:1", words: "My lit- tle sis- ter pulled her rid- in' boots on" },
+      { notes: "A3:.5 D4:.5 D4:.5 E4:.5 F#4:1 D4:1 D4:1 B3:.5 D4:.5 F#4:1 -:1", words: "Bump- in' down the grav- el road, sing- in' loud" },
+      { notes: "G4:.5 G4:.5 G4:.5 A4:.5 B4:1 G4:1 A4:1 E4:.5 C#4:.5 A3:1 -:1", words: "We're wav- in' at the cat- tle, what a crowd" },
+      { notes: "F#4:1 A4:1 A4:.5 A4:.5 B4:.5 A4:.5 B4:1 D5:1 B4:1 -:1", words: "Grav- el road ro- de- o, dust will fly" },
+      { notes: "G4:.5 G4:.5 B4:.5 B4:.5 D5:1 B4:1 A4:1 C#5:.5 B4:.5 A4:1 -:1", words: "Spin your hat and kick your boots up so high" },
+      { notes: "F#4:1 A4:1 A4:.5 A4:.5 B4:.5 A4:.5 B4:1 D5:1 B4:1 -:1", words: "Grav- el road ro- de- o, yee- haw, whoa!" },
+      { notes: "B4:1 A4:.5 G4:.5 D4:1 G4:.5 G4:.5 A4:2 -:2", words: "Ev- ery- bod- y, do- si- do!" },
+      { notes: "A3:.5 D4:.5 D4:.5 E4:.5 F#4:1 D4:1 D4:1 B3:.5 D4:.5 F#4:1 -:1", words: "We won a rib- bon for the pump- kin pie" },
+      { notes: "G4:.5 G4:.5 G4:.5 A4:.5 B4:1 G4:1 A4:1 E4:.5 C#4:.5 A3:1 -:1", words: "And Grand- ma tipped her hat and winked her eye" },
+      { notes: "F#4:1 A4:1 A4:.5 A4:.5 B4:.5 A4:.5 B4:1 D5:1 B4:1 -:1", words: "Grav- el road ro- de- o, dust will fly" },
+      { notes: "B4:1 A4:.5 G4:.5 D4:1 G4:.5 G4:.5 A4:2 -:2", words: "Ev- ery- bod- y, do- si- do!" }
+    ]
+  },
+  {
+    id: "biscuit-rides-shotgun",
+    title: "Biscuit Rides Shotgun",
+    artist: "Sadie Mae Sunflower",
+    genre: "country",
+    bpm: 98,
+    difficulty: 3,
+    colors: ["#ffe066", "#ff8c42"],
+    chords: ["A", "D", "E", "A"],
+    intro: 4,
+    lines: [
+      { notes: "E4:.5 A4:.5 A4:.25 A4:.25 B4:.5 C#5:1 A4:.5 E4:.5 F#4:.5 A4:.5 D5:.5 C#5:.5 A4:1 F#4:.5 D4:.5", words: "Got a pup named Bis- cuit and he's rid- in' shot- gun in my truck" },
+      { notes: "E4:.5 E4:.5 G#4:.5 B4:.5 B4:1 G#4:.5 E4:.5 E4:1 C#4:1 A3:2", words: "He's bark- in' hel- lo to a wad- dlin' duck" },
+      { notes: "E4:.5 A4:.5 A4:.25 A4:.25 B4:.5 C#5:1 A4:.5 E4:.5 F#4:.5 A4:.5 D5:.5 C#5:.5 A4:1 F#4:.5 D4:.5", words: "Down the coun- try high- way where the sun- flow- ers are grow- in' tall" },
+      { notes: "E4:.5 E4:.5 G#4:.5 B4:.5 B4:1 G#4:.5 E4:.5 E4:1 C#4:1 A3:2", words: "And Bis- cuit howls a song for one and all" },
+      { notes: "C#5:.5 C#5:.5 C#5:.5 B4:.5 A4:1 E4:1 F#4:.5 A4:.5 D5:1 A4:1 F#4:1", words: "Bis- cuit rides shot- gun, flop- py ears a- fly- in'" },
+      { notes: "B4:.5 B4:.5 B4:.5 G#4:.5 E4:1 E4:1 E4:.5 A4:.5 C#5:1 A4:2", words: "Ev- ery- bod- y wav- in' as we go by" },
+      { notes: "C#5:.5 C#5:.5 C#5:.5 B4:.5 A4:1 E4:1 F#4:.5 A4:.5 D5:1 A4:1 F#4:1", words: "Bis- cuit rides shot- gun, tail a- wag- gin' so fast" },
+      { notes: "B4:1 G#4:.5 E4:.5 B4:1 D5:1 C#5:1 B4:.5 A4:.5 A4:2", words: "Best of bud- dies from the first to last" },
+      { notes: "C#5:.5 C#5:.5 C#5:.5 B4:.5 A4:1 E4:1 F#4:.5 A4:.5 D5:1 A4:1 F#4:1", words: "Bis- cuit rides shot- gun down the road to- ward home" },
+      { notes: "B4:1 B4:1 G#4:1 B4:1 A4:4", words: "Bis- cuit, we're back home!" }
+    ]
+  },
+
+  // ---------------- OLDIES ----------------
+  {
+    id: "soda-shop-moon",
+    title: "Soda Shop Moon",
+    artist: "The Jukebox Darlings",
+    genre: "oldies",
+    bpm: 126,
+    difficulty: 1,
+    colors: ["#ff6fae", "#5ce1e6"],
+    chords: ["C", "Am", "F", "G"],
+    intro: 4,
+    lines: [
+      { notes: "E4:1 G4:1 G4:1 G4:1 A4:1 E4:1 C4:1 -:1", words: "Meet me at the so- da shop" },
+      { notes: "C4:.5 C4:.5 F4:1 A4:1 -:1 G4:1 G4:1 B4:1 -:1", words: "Shoo bop, shoo bop, doo wah wah!" },
+      { notes: "E4:1 G4:1 G4:1 G4:1 A4:1 E4:1 C4:1 -:1", words: "Malt- ed milk and cher- ry top" },
+      { notes: "C4:.5 C4:.5 F4:1 A4:1 -:1 G4:1 G4:1 B4:1 -:1", words: "Shoo bop, shoo bop, doo wah wah!" },
+      { notes: "E4:1 G4:1 G4:1 G4:1 A4:1 E4:1 C4:1 -:1", words: "Juke- box spin- ning ev- ery tune" },
+      { notes: "C4:.5 C4:.5 F4:1 A4:1 -:1 G4:1 G4:1 B4:1 -:1", words: "Danc- in' un- der the big moon" },
+      { notes: "G4:1 E4:.5 G4:.5 C5:1 G4:1 A4:1 C5:1 E5:1 -:1", words: "So- da shop moon, oh, shine on me" },
+      { notes: "F4:.5 F4:.5 A4:1 C5:1 -:1 B4:1 D5:1 G4:1 -:1", words: "Shoo bop, shoo bop, shoo bop bop!" },
+      { notes: "G4:1 E4:.5 G4:.5 C5:1 G4:1 A4:1 C5:1 E5:1 -:1", words: "So- da shop moon, you're glow- ing bright" },
+      { notes: "F4:.5 F4:.5 A4:1 C5:1 -:1 B4:1 D5:1 G4:1 -:1", words: "Shoo bop, shoo bop, shoo bop bop!" },
+      { notes: "G4:1 E4:.5 G4:.5 C5:1 G4:1 A4:1 C5:1 E5:1 -:1", words: "Let's dance the whole sweet sum- mer night" },
+      { notes: "F4:1 A4:1 C5:2 G4:4", words: "Shoo bop, doo wah!" }
+    ]
+  },
+  {
+    id: "hula-hoop-heartbeat",
+    title: "Hula Hoop Heartbeat",
+    artist: "Frankie Starlite & The Dreamboats",
+    genre: "oldies",
+    bpm: 132,
+    difficulty: 2,
+    colors: ["#ff4f81", "#ffd23f"],
+    chords: ["G", "Em", "C", "D"],
+    intro: 4,
+    lines: [
+      { notes: "D4:.5 G4:.5 G4:.5 G4:.5 B4:1 G4:1 E4:.5 G4:.5 B4:.5 G4:.5 E4:1 -:1", words: "I'm spin- nin' my hu- la hoop a- round and round" },
+      { notes: "E4:.5 G4:.5 C5:.5 C5:.5 C5:1 -:1 D5:.5 C5:.5 A4:.5 F#4:.5 D4:1 -:1", words: "Shoo bop, shoo bop, wah! My feet leave the ground" },
+      { notes: "D4:.5 G4:.5 G4:.5 G4:.5 B4:1 G4:1 E4:.5 G4:.5 B4:.5 G4:.5 E4:1 -:1", words: "My pon- y- tail a- bounc- in', sad- dle shoes too" },
+      { notes: "E4:.5 G4:.5 C5:.5 C5:.5 C5:1 -:1 D5:.5 C5:.5 A4:.5 F#4:.5 D4:1 -:1", words: "Shoo bop, shoo bop, wah! The sky is so blue" },
+      { notes: "B4:1 B4:.5 B4:.5 D5:1 B4:1 B4:.5 G4:.5 E4:1 G4:1 -:1", words: "Hu- la hoop heart- beat, boom ba- dee boom" },
+      { notes: "C5:1 C5:.5 C5:.5 E5:1 C5:1 D5:.5 D5:.5 A4:1 F#4:1 -:1", words: "Shoo bop, shoo bop, twirl a- round the room" },
+      { notes: "B4:1 B4:.5 B4:.5 D5:1 B4:1 B4:.5 G4:.5 E4:1 G4:1 -:1", words: "Hu- la hoop heart- beat, ooh wah, ooh wah" },
+      { notes: "E5:1 D5:.5 C5:.5 G4:1 E4:1 D4:1 F#4:1 A4:1 -:1", words: "Come on and twirl, spin with me now" },
+      { notes: "B4:1 B4:.5 B4:.5 D5:1 B4:1 B4:.5 G4:.5 E4:1 G4:1 -:1", words: "Hu- la hoop heart- beat, boom ba- dee boom" },
+      { notes: "C5:1 C5:.5 C5:.5 E5:1 C5:1 D5:.5 D5:.5 A4:1 F#4:1 -:1", words: "Shoo bop, shoo bop, swing- in' to the tune" },
+      { notes: "B4:1 B4:.5 B4:.5 D5:1 B4:1 B4:.5 G4:.5 E4:1 G4:1 -:1", words: "Hu- la hoop heart- beat, ooh wah, ooh wah" },
+      { notes: "E5:1 D5:1 C5:1 E4:1 A4:2 F#4:2", words: "Shoo bop, shoo bop, doo wah!" }
+    ]
+  },
+  {
+    id: "roller-skate-rendezvous",
+    title: "Roller Skate Rendezvous",
+    artist: "Dottie & The Doo-Wop Dynamos",
+    genre: "oldies",
+    bpm: 116,
+    difficulty: 3,
+    colors: ["#ff5ec4", "#4d7cff"],
+    chords: ["F", "Dm", "Bb", "C"],
+    intro: 4,
+    lines: [
+      { notes: "C4:.5 F4:.5 A4:.5 C5:.5 C5:.75 A4:.25 F4:1 F4:.5 A4:.5 D5:.5 C5:.5 A4:.75 F4:.25 D4:1", words: "Lace my skates up, roll- in' to the rink at eight o'- clock sharp" },
+      { notes: "Bb3:.5 D4:.5 F4:.5 Bb4:.5 Bb4:1 -:1 C5:.5 Bb4:.5 G4:.5 E4:.5 C4:1 -:1", words: "Shoo bop she bop, wah! Shoo bop she bop, whoa" },
+      { notes: "C4:.5 F4:.5 A4:.5 C5:.5 C5:.75 A4:.25 F4:1 F4:.5 A4:.5 D5:.5 C5:.5 A4:.75 F4:.25 D4:1", words: "Or- gan mu- sic play- in' as we glide a- round in a ring" },
+      { notes: "Bb3:.5 D4:.5 F4:.5 Bb4:.5 Bb4:1 -:1 C5:.5 Bb4:.5 G4:.5 E4:.5 C4:1 -:1", words: "Shoo bop she bop, wah! Shoo bop she bop, whoa" },
+      { notes: "C4:.5 F4:.5 A4:.5 C5:.5 C5:.75 A4:.25 F4:1 F4:.5 A4:.5 D5:.5 C5:.5 A4:.75 F4:.25 D4:1", words: "Grab your best friend's hand and then we'll be twirl- in' all a- round" },
+      { notes: "D5:1 C5:.5 Bb4:.5 F4:1 D4:1 E4:.5 G4:.5 C5:1 -:2", words: "Wheels are hum- ming, such a sweet sound" },
+      { notes: "A4:.5 C5:.5 C5:.25 D5:.25 C5:.5 A4:1 F4:1 D5:.5 D5:.5 C5:.5 A4:.5 F4:1 D4:1", words: "Roll- er skate ren- dez- vous, shoo bop, we're glid- in' right through" },
+      { notes: "F4:.5 Bb4:.5 D5:.5 D5:.5 D5:1 Bb4:1 C5:.5 C5:.5 Bb4:.5 G4:.5 E4:2", words: "Shoo bop she bop, wah, I'll roll- er skate with you" },
+      { notes: "A4:.5 C5:.5 C5:.25 D5:.25 C5:.5 A4:1 F4:1 D5:.5 D5:.5 C5:.5 A4:.5 F4:1 D4:1", words: "Roll- er skate ren- dez- vous, shoo bop, the mu- sic's on cue" },
+      { notes: "F4:.5 Bb4:.5 D5:.5 D5:.5 D5:1 Bb4:1 C5:.5 C5:.5 Bb4:.5 G4:.5 E4:2", words: "Shoo bop she bop, wah, we'll skate the whole night through" },
+      { notes: "A4:.5 C5:.5 C5:.25 D5:.25 C5:.5 A4:1 F4:1 D5:.5 D5:.5 C5:.5 A4:.5 F4:1 D4:1", words: "Roll- er skate ren- dez- vous, shoo bop, it's a dream come true" },
+      { notes: "D5:1 C5:1 Bb4:1 A4:.5 G4:.5 E4:1 G4:1 C5:2", words: "Shoo bop, she bop, shoo bop, doo wah!" }
+    ]
+  }
+];

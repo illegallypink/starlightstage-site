@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Starlight Stage</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A4%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Animated club backdrop shared by every screen -->
+<div class="bg" aria-hidden="true">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="beams"><i></i><i></i><i></i><i></i></div>
+  <canvas id="sparkles"></canvas>
+  <div class="floor"></div>
+</div>
+
+<main id="app">
+
+  <!-- LOBBY -->
+  <section class="screen lobby is-active" id="lobby" aria-labelledby="logoTitle">
+    <div class="lobby-top">
+      <span class="chip">🎤 <b id="statSung">0</b> <span id="statSungWord">songs sung</span></span>
+      <span class="chip">🏆 <b id="statMics">1</b> mics unlocked</span>
+      <span class="chip" id="statMicMode">🎙️ Virtual mic</span>
+    </div>
+    <div class="logo">
+      <span class="logo-kicker">★ Karaoke Night ★</span>
+      <h1 id="logoTitle">Starlight<span>Stage</span></h1>
+      <p>Pick a song. Grab the mic. Bring the house down.</p>
+    </div>
+    <button class="play-btn" id="playBtn" type="button" aria-label="Play: open the song library">
+      <span class="play-ring"></span><span class="play-ring r2"></span>
+      <span class="play-core"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg><b>PLAY</b></span>
+    </button>
+    <div class="lobby-actions">
+      <button class="pill-btn" type="button" data-go="locker">🎤 Mic Locker</button>
+      <button class="pill-btn" type="button" data-open="micDialog">🎙️ Mic setup</button>
+    </div>
+    <div class="mini-stage" aria-hidden="true">
+      <div class="crowd mini" id="lobbyCrowd"></div>
+      <div class="performer" id="lobbyStar"></div>
+    </div>
+  </section>
+
+  <!-- SONG LIBRARY -->
+  <section class="screen library" id="library" aria-labelledby="libTitle">
+    <header class="topbar">
+      <button class="icon-btn" type="button" data-go="lobby" aria-label="Back to lobby">←</button>
+      <h2 id="libTitle">Song Library</h2>
+      <button class="pill-btn hot" type="button" data-open="addDialog">+ Add your own</button>
+    </header>
+    <label class="search">
+      <span aria-hidden="true">🔍</span>
+      <input id="search" type="search" placeholder="Search songs or artists…" autocomplete="off" aria-label="Search songs or artists">
+    </label>
+    <div class="genres" id="genres" role="group" aria-label="Filter by genre"></div>
+    <div class="song-grid" id="songGrid"></div>
+    <p class="empty" id="emptyMsg" hidden>No songs match that. Try another search or genre.</p>
+  </section>
+
+  <!-- STAGE -->
+  <section class="screen stage" id="stage" aria-label="Performance stage">
+    <div class="hud">
+      <button class="icon-btn" type="button" id="pauseBtn" aria-label="Pause">❚❚</button>
+      <div class="now">
+        <div class="now-title" id="nowTitle"></div>
+        <div class="now-artist" id="nowArtist"></div>
+      </div>
+      <div class="scorebox">
+        <span class="score" id="score">0</span>
+        <span class="combo" id="combo"></span>
+      </div>
+    </div>
+    <div class="progress"><i id="progress"></i></div>
+
+    <div class="scene">
+      <div class="spots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="hype" aria-hidden="true"><span>HYPE</span><div class="hype-bar"><i id="hype"></i></div></div>
+      <div class="platform" aria-hidden="true"></div>
+      <div class="performer big" id="performer" aria-hidden="true"></div>
+      <div class="crowd" id="crowd" aria-hidden="true"></div>
+      <div class="judge" id="judge" aria-live="polite"></div>
+      <div class="reactions" id="reactions" aria-live="polite"></div>
+    </div>
+
+    <canvas class="lane" id="lane" aria-hidden="true"></canvas>
+
+    <div class="lyrics" aria-live="off">
+      <div class="lyric-now" id="lyricNow"></div>
+      <div class="lyric-next" id="lyricNext"></div>
+    </div>
+
+    <div class="mic-row">
+      <div class="meter" aria-hidden="true"><i id="meter"></i></div>
+      <span class="mic-note" id="micNote"></span>
+      <button class="hold-btn" type="button" id="holdBtn">🎤 Hold to sing <kbd>Space</kbd></button>
+    </div>
+
+    <div class="countdown" id="countdown" hidden><span id="countNum"></span></div>
+
+    <div class="pause-menu" id="pauseMenu" hidden>
+      <div class="pause-card">
+        <h3>Paused</h3>
+        <button class="big-btn" type="button" id="resumeBtn">▶ Resume</button>
+        <button class="pill-btn" type="button" id="restartBtn">↻ Restart song</button>
+        <button class="pill-btn" type="button" id="quitBtn">✕ Quit to library</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="screen results" id="results" aria-labelledby="resTitle">
+    <div class="applause-sign" id="applauseSign">APPLAUSE</div>
+    <h2 id="resTitle" class="res-song"></h2>
+    <p class="res-artist" id="resArtist"></p>
+    <div class="grade" id="grade">A</div>
+    <p class="quip" id="quip"></p>
+    <div class="res-stats">
+      <div><b id="resScore">0</b><span>Score</span></div>
+      <div><b id="resAcc">0%</b><span>Accuracy</span></div>
+      <div><b id="resPerfect">0</b><span>Perfects</span></div>
+      <div><b id="resCombo">0</b><span>Best combo</span></div>
+    </div>
+    <p class="new-best" id="newBest" hidden>★ NEW PERSONAL BEST ★</p>
+    <div class="unlocks" id="unlocks"></div>
+    <div class="res-actions">
+      <button class="big-btn" type="button" id="againBtn">↻ Sing again</button>
+      <button class="pill-btn" type="button" data-go="library">🎵 Pick another song</button>
+      <button class="pill-btn" type="button" data-go="locker">🎤 Mic Locker</button>
+    </div>
+    <div class="crowd mini" id="resCrowd" aria-hidden="true"></div>
+  </section>
+
+  <!-- MIC LOCKER -->
+  <section class="screen locker" id="locker" aria-labelledby="lockTitle">
+    <header class="topbar">
+      <button class="icon-btn" type="button" data-go="lobby" aria-label="Back to lobby">←</button>
+      <h2 id="lockTitle">Mic Locker</h2>
+      <span class="chip" id="lockCount"></span>
+    </header>
+    <p class="hint">Every song you finish brings you closer to a new mic. Tap an unlocked mic to take it on stage.</p>
+    <div class="mic-grid" id="micGrid"></div>
+  </section>
+</main>
+
+<!-- Song details -->
+<dialog class="sheet" id="songDialog" aria-labelledby="sdTitle">
+  <button class="icon-btn close" type="button" data-close aria-label="Close">✕</button>
+  <div class="sd-cover" id="sdCover"></div>
+  <div class="sd-info">
+    <span class="genre-tag" id="sdGenre"></span>
+    <h3 id="sdTitle"></h3>
+    <p class="sd-artist" id="sdArtist"></p>
+    <p class="sd-meta" id="sdMeta"></p>
+    <label class="toggle"><input type="checkbox" id="guideToggle" checked><span></span> Guide vocal (plays the tune)</label>
+    <p class="sd-mic">Mic: <b id="sdMic"></b> · <button class="link-btn" type="button" data-open="micDialog">change</button></p>
+    <button class="big-btn sing-btn" type="button" id="singBtn">▶ SING IT</button>
+    <button class="link-btn danger" type="button" id="deleteSongBtn" hidden>Delete this song</button>
+  </div>
+</dialog>
+
+<!-- Mic setup -->
+<dialog class="sheet" id="micDialog" aria-labelledby="mdTitle">
+  <button class="icon-btn close" type="button" data-close aria-label="Close">✕</button>
+  <h3 id="mdTitle">Mic setup</h3>
+  <div class="mode-pick">
+    <button class="mode-card" type="button" id="useRealMic">
+      <b>🎙️ Real mic</b>
+      <span>Sing into your microphone. The game hears your pitch and scores every note.</span>
+    </button>
+    <button class="mode-card" type="button" id="useVirtualMic">
+      <b>🕹️ Virtual mic</b>
+      <span>No mic needed. Hold the button or Space while the words light up, and let go between lines to breathe.</span>
+    </button>
+  </div>
+  <div class="mic-test" id="micTest" hidden>
+    <div class="meter big"><i id="testMeter"></i></div>
+    <p class="test-note">Detected note: <b id="testNote">—</b></p>
+    <label class="toggle"><input type="checkbox" id="monitorToggle"><span></span> Hear myself with echo (wear headphones)</label>
+  </div>
+  <p class="mic-status" id="micStatus" role="status"></p>
+  <p class="hint">Tip: wear headphones so the music doesn't leak into your mic.</p>
+</dialog>
+
+<!-- Add your own song -->
+<dialog class="sheet" id="addDialog" aria-labelledby="adTitle">
+  <button class="icon-btn close" type="button" data-close aria-label="Close">✕</button>
+  <h3 id="adTitle">Add your own song</h3>
+  <form id="addForm" class="add-form">
+    <label>Song title <input id="addTitle" required maxlength="60"></label>
+    <label>Artist <input id="addArtist" required maxlength="60"></label>
+    <label>Genre
+      <select id="addGenre"></select>
+    </label>
+    <label>Music file (an instrumental works best)
+      <input id="addFile" type="file" accept="audio/*" required>
+    </label>
+    <label>Lyrics
+      <textarea id="addLyrics" rows="7" required placeholder="[00:12.50] First line of the song&#10;[00:16.00] Second line&#10;&#10;Timestamps are optional. Without them the lines are spread evenly across the song."></textarea>
+    </label>
+    <p class="hint">Songs you add are saved in this browser only.</p>
+    <p class="form-error" id="addError" role="alert"></p>
+    <button class="big-btn" type="submit">💾 Save song</button>
+  </form>
+</dialog>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script src="songs.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
